@@ -1,0 +1,45 @@
+@import "../commom/commom.scss";
+.navbar-container {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: $footer-color;
+  color: #fff;
+  font-size: 20px;
+  height: 60px;
+  ul {
+    height: 60px;
+    img{
+      cursor:pointer;
+    }
+    li {
+      margin: auto 0;
+      ul {
+        @media (max-width: 768px) {
+          display: none !important;
+        }
+        li {
+          padding: 10px 0px;
+          a {
+            padding: 10px;
+            display: block;
+            cursor: pointer;
+            color: #fff;
+            &:hover {
+              border-radius: 20px;
+              background: $side-color;
+            }
+          }
+        }
+      }
+    }
+      .rwd-menu {
+        cursor:pointer;
+        @media (min-width: 768px) {
+          display: none;
+        }
+      }
+  }
+}

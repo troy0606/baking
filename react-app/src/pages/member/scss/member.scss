@@ -1,0 +1,62 @@
+@import "../../../commom/commom.scss";
+
+.member-container {
+  margin-top: 60px;
+  min-height: calc(100vh - 120px);
+  padding: 30px 0;
+  ul {
+    width: 100%;
+    min-height: 50vh;
+    max-height: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 3px 3px 3px 0.5px rgba(0, 0, 0, 0.8);
+    .img-li {
+      padding: 15px 0 0 0;
+      .img-box {
+        overflow: hidden;
+        width: 100px;
+        height: 100px;
+        border-radius: 100%;
+        // background-color: #000;
+        margin: 0 auto;
+        img {
+          width: 100%;
+        }
+      }
+      .img-edit {
+        text-align: center;
+        p {
+          padding: 10px;
+          width: 60px;
+          margin: 10px auto 0 auto;
+          cursor: pointer;
+          font-weight: 600;
+          &:hover {
+            background-color: $hover-color;
+            border-radius: 20px;
+          }
+        }
+      }
+      hr {
+        border: 1px $footer-color solid;
+      }
+    }
+    li:not(.img-li) {
+      padding: 10px 0;
+      text-align: center;
+      cursor: pointer;
+      a {
+        font-weight: 600;
+        color: $footer-color;
+      }
+      &:hover {
+        background-color: $hover-color;
+      }
+    }
+  }
+  .member-main {
+    width: 100%;
+    min-height: 75vh;
+    background-color: #fff;
+  }
+}

@@ -1,0 +1,90 @@
+@import "../../../commom/commom.scss";
+.products-container {
+  margin-top: 60px;
+  @media (max-width: 768px) {
+    margin-top: 0px;
+  }
+  min-height: calc(100vh - 120px);
+  .products-top {
+    margin: 30px 0;
+    width: 100%;
+    min-height: 450px;
+    background-image: url("/images/products/翻轉蘋果蛋糕b.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 50% 40%;
+    @media (max-width: 768px) {
+      background-size: 700px;
+    }
+  }
+  .products-coupon {
+    min-height: 280px;
+    margin-bottom: 20px;
+    width: 100%;
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+    .products-coupon-detail-1,
+    .products-coupon-detail-2 {
+      width: 50%;
+      height: 250px;
+      background-color: #fff;
+      @media (max-width: 768px) {
+        width: 80%;
+        height: 200px;
+      }
+    }
+    .products-coupon-detail-1 {
+      margin-right: 20px;
+      @media (max-width: 768px) {
+        margin-right: 0px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+  .products-select {
+    ul {
+      @media (max-width: 576px) {
+        flex-direction: column;
+        align-items: center;
+      }
+      li {
+        padding: 10px;
+        width: 100px;
+        text-align: center;
+        background-color: #fff;
+        border-radius: 20px;
+        cursor: pointer;
+        &:hover {
+          background-color: $hover-color;
+        }
+        @media (max-width: 576px) {
+          margin: 10px 0;
+        }
+      }
+    }
+    hr {
+      border: solid 0.5px $footer-color;
+    }
+  }
+  .products-product {
+    margin: 40px 0 40px 0;
+    @media (max-width: 768px) {
+      margin: 0px 0px 0px 0px;
+    }
+    .products-card {
+      justify-content: center;
+      width: 33%;
+      height: 300px;
+      background-color: #fff;
+      margin: 0 10px;
+      @media (max-width: 768px) {
+        width: 100%;
+        margin: 10px 0;
+      }
+    }
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+}
