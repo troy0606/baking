@@ -22,17 +22,36 @@ function NavBar() {
                   <Link to="/products/">享烘滋味</Link>
                 </li>
                 <li>
-                  <Link to="/home2/">享烘論壇</Link>
+                  <Link to="/forum/">享烘論壇</Link>
                 </li>
                 <li>
                   <Link to="/teacher/">玩樂烘培</Link>
                 </li>
-                <li>
-                  <Link to="/member/">
-                  <MdPerson/></Link>
+                <li className="login-pos">
+                  <Link>
+                    <MdPerson />
+                  </Link>
+                  <ul className="member-login">
+                    <li>
+                      <Link to="/member/">會員專區</Link>
+                    </li>
+                    <li>
+                      <Link to="/home/">登出</Link>
+                    </li>
+                  </ul>
                 </li>
-                <li>
-                  <Link to="/home4/"><FaShoppingCart/></Link>
+                <li className="smell-cart">
+                  <Link>
+                    <FaShoppingCart />
+                  </Link>
+                  <div className="smell-cart-sidebar">
+                    <ul>
+                      <li>1</li>
+                      <li>2</li>
+                      <li>3</li>
+                      <li>4</li>
+                    </ul>
+                  </div>
                 </li>
               </ul>
             </li>

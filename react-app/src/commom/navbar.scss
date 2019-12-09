@@ -11,14 +11,57 @@
   height: 60px;
   ul {
     height: 60px;
-    img{
-      cursor:pointer;
+    img {
+      cursor: pointer;
     }
     li {
       margin: auto 0;
       ul {
         @media (max-width: 768px) {
           display: none !important;
+        }
+        .login-pos {
+          position: relative;
+          .member-login {
+            position: absolute;
+            left: 15px;
+            top: 55px;
+            width: 75px;
+            font-size: 16px;
+            background-color: #fff;
+            z-index: 2;
+            height: 51.5px;
+            li {
+              margin: auto;
+              cursor: pointer;
+              padding: 5px 5px;
+              &:hover {
+                background-color: $side-color;
+              }
+              &:before {
+                content: "";
+                width: 0;
+                display: block;
+                border-width: 8px 8px 8px 8px;
+                border-style: solid;
+                border-color: transparent transparent rgba(255, 255, 255, 1)
+                  transparent;
+                /* 定位 */
+                position: absolute;
+                left: 0px;
+                top: -15px;
+              }
+              a {
+                padding: 0px;
+                display: block;
+                color: $footer-color;
+                &:hover {
+                  border-radius: 0px;
+                  background: $side-color;
+                }
+              }
+            }
+          }
         }
         li {
           padding: 10px 0px;
@@ -35,11 +78,23 @@
         }
       }
     }
-      .rwd-menu {
-        cursor:pointer;
-        @media (min-width: 768px) {
-          display: none;
-        }
+    .smell-cart {
+      .smell-cart-sidebar {
+        display: none;
+        width: 375px;
+        height: 100vh;
+        background-color: $footer-color;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
       }
+    }
+    .rwd-menu {
+      cursor: pointer;
+      @media (min-width: 768px) {
+        display: none;
+      }
+    }
   }
 }
