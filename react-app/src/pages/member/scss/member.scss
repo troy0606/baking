@@ -60,3 +60,50 @@
     background-color: #fff;
   }
 }
+
+.backGroundImg {
+  height: calc(100vh - 60px);
+  width: 100vw;
+  background-image: url("/images/member/抹茶千層蛋糕b3.png");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  .switch_card {
+    width: 23rem;
+    height: 400px;
+    overflow: hidden;
+    object-fit: cover;
+    position: relative;
+  }
+  .card {
+    border: 0px white solid;
+    transition: 0.5s;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    flex-shrink: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 60px 20px 10px;
+    height: 400px;
+    // margin: 0 auto;
+    h2 {
+      text-align: center;
+      font-size: 30px;
+      font-weight: bold;
+    }
+    form {
+      padding: 10px 0px;
+    }
+    .login_btn {
+      cursor: pointer;
+    }
+    .forget_signUp {
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  }
+}

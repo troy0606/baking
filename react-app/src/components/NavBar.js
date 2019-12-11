@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../commom/navbar.scss";
 import { AiOutlineMenu } from "react-icons/ai";
 import { MdPerson } from "react-icons/md";
 import { FaShoppingCart } from "react-icons/fa";
 function NavBar() {
+  const [logIn, setLogIn] = useState(false);
+  useEffect(() => {}, []);
   return (
     <>
       <nav className="container-fulid navbar-container">
@@ -31,14 +33,26 @@ function NavBar() {
                   <Link>
                     <MdPerson />
                   </Link>
-                  <ul className="member-login">
-                    <li>
-                      <Link to="/member/">會員專區</Link>
-                    </li>
-                    <li>
-                      <Link to="/home/">登出</Link>
-                    </li>
-                  </ul>
+                  {logIn ? (
+                    <ul className="member-login">
+                      <li>
+                        <Link to="/member/">會員專區</Link>
+                      </li>
+                      <li>
+                        <Link to="/home/">登出</Link>
+                      </li>
+                    </ul>
+                  ) : (
+                    <ul className="member-login">
+                      <li>
+                        <Link to="/member/signup_Login">
+                          登入
+                          <br />
+                          註冊
+                        </Link>
+                      </li>
+                    </ul>
+                  )}
                 </li>
                 <li className="smell-cart">
                   <Link>
