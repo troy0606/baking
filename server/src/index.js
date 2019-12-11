@@ -8,7 +8,12 @@ const mysql = require("mysql"); //mysql資料庫引入
 const moment = require("moment-timezone"); //解析時間格式
 const session = require("express-session"); //session設定
 const cors = require("cors"); //導入開放網域模組
-const db_Obj = require("C:/Users/__connect.json"); //連線到資料庫
+const db_Obj = {
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "baking_shop"
+}; //連線到資料庫
 const db = mysql.createConnection(db_Obj);
 const bluebird = require("bluebird"); //使用兩次sql
 const bodyParser = require("body-parser");

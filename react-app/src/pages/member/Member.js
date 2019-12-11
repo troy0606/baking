@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./scss/member.scss";
 import { Link, Route, Switch } from "react-router-dom";
 
 function Home() {
+  useEffect(() => {}, []);
   return (
     <>
       <div className="container member-container">
