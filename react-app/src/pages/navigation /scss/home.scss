@@ -1,0 +1,249 @@
+@import "../../../commom/commom.scss";
+%position-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+%home-height {
+  height: calc(100vh);
+  background-repeat: no-repeat;
+  background-size: 1920px;
+  position: relative;
+}
+
+%home-detail-title {
+  width: 300px;
+  height: 100px;
+  box-shadow: 2px 2px 10px;
+  background-color: #fff;
+  opacity: 0.8;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -80%);
+  text-align: center;
+  line-height: 100px;
+  font-size: 32px;
+}
+%detail-container {
+  position: absolute;
+  height: 130px;
+  max-width: 800px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  letter-spacing: 3px;
+  line-height: 20px;
+}
+//sass中階技巧使用
+
+.home-container {
+  min-height: calc(100vh - 60px);
+  @media (max-width: 768px) {
+    margin-top: 0px;
+    background-size: 768px;
+  }
+  .home-top {
+    @extend %home-height;
+    margin-top: 60px;
+    background-image: url("/images/home/京都之舞b.png");
+  background-position: 50% 10%;
+
+    @media (max-width: 768px) {
+      height: 100%;
+      margin-top: 60px;
+      background-size: 768px;
+      background-position: 50% 0%;
+    }
+    .homePage-txt {
+      overflow: hidden;
+      height: 250px;
+      width: 48px;
+      position: absolute;
+      top: 25%;
+      left: 70%;
+      text-align: center;
+      font-size: 48px;
+      opacity: 0;
+      animation: fade-in 3s ease 0s;
+      animation-fill-mode: forwards;
+      -webkit-animation-fill-mode: forwards;
+      -o-animation-fill-mode: forwards;
+      -ms-animation-fill-mode: forwards;
+      -moz-animation-fill-mode: forwards;
+      writing-mode: vertical-lr;
+      @media (max-width: 768px) {
+        margin-top: 20px;
+        font-size: 36px;
+        top: 10%;
+        left: 80%;
+      }
+      @keyframes fade-in {
+        0% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 0.5;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+    }
+    .product-title {
+      background-color: #fff;
+      margin: 580px auto 0 auto;
+      max-width: 33%;
+      height: 250px;
+      line-height: pxToVw(300);
+      text-align: center;
+      writing-mode: vertical-lr;
+      filter: 0.3;
+      opacity: 0.8;
+      cursor: pointer;
+      font-size: 24px;
+      a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        color: $footer-color;
+      }
+      &:hover {
+        background-color: $hover-color;
+      }
+      @media (max-width: 768px) {
+        margin: 310px auto 0 auto;
+        height: 150px;
+      }
+    }
+  }
+
+  .home-detail-1 {
+    @extend %home-height;
+    background-image: url("/images/home/abstract02.jpg");
+  background-position: 50% 10%;
+
+    @media (max-width: 768px) {
+      background-size: 800px;
+    }
+    .home-detail-title {
+      @extend %home-detail-title;
+    }
+    .home-detail-content-bottom {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 290px;
+      background-color: $header-color;
+      clip-path: polygon(100% 0%, 100% 100%, 0% 100%, 0% 50%);
+      @media (max-width: 768px) {
+        clip-path: polygon(100% 50%, 100% 100%, 0% 100%, 0% 50%);
+      }
+      .container {
+        @extend %detail-container;
+        color: #fff;
+        p {
+          @media (max-width: 800px) {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+    }
+  }
+  .home-detail-2 {
+    @extend %home-height;
+    background-image: url("/images/home/草莓花圈塔b.png");
+  background-position: 50% 0%;
+
+    @media (max-width: 768px) {
+      background-size: 1240px;
+    }
+    .home-detail-title {
+      @extend %home-detail-title;
+    }
+    .home-detail-content-bottom {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 290px;
+      background-color: $side-color;
+      clip-path: polygon(100% 50%, 0% 0%, 0% 100%, 100% 100%);
+      @media (max-width: 768px) {
+        clip-path: polygon(100% 50%, 100% 100%, 0% 100%, 0% 50%);
+      }
+      .container {
+        @extend %detail-container;
+        color: #fff;
+        p {
+          @media (max-width: 768px) {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+    }
+  }
+  .home-product {
+    height: calc(100vh - 120px);
+    background-repeat: no-repeat;
+    background-position: 50% 10%;
+    position: relative;
+    @media (max-width: 768px) {
+      width: 100%;
+      height: 100%;
+    }
+    .Today-products {
+      @media (max-width: 768px) {
+        padding: 80px 0 60px 0;
+      }
+      h3 {
+        font-size: 40px;
+        text-align: center;
+        padding: 120px 0 60px 0;
+        @media (max-width: 768px) {
+          padding: 0 0 40px 0;
+        }
+      }
+
+      ul {
+        @media (max-width: 768px) {
+          flex-direction: column;
+        }
+        li {
+          @media (max-width: 768px) {
+            width: 80%;
+          }
+          width: 33%;
+          max-height: 300px;
+          background-color: #fff;
+          margin: 0 pxToVw(50);
+          @media (max-width: 768px) {
+            margin: 0 auto 20px auto;
+          }
+          overflow: hidden;
+          img {
+            object-fit: cover;
+            width: 100%;
+            max-height: 250px;
+          }
+          p {
+            padding: 10px 0;
+            text-align: center;
+            cursor: pointer;
+            &:hover {
+              background-color: $hover-color;
+            }
+          }
+        }
+      }
+    }
+  }
+}
