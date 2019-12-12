@@ -177,7 +177,7 @@ $color_cherry_2: #df5333;
     img {
       height: 3.3em;
       opacity: 0;
-      animation: fadeIn 1s 2.5s both;
+      animation: fadeIn 1s 2s both;
       margin-right: 30px;
       margin-top: 3px;
     }
@@ -185,7 +185,7 @@ $color_cherry_2: #df5333;
       background-color: $color_cherry_2;
       color: #fff;
       opacity: 0;
-      animation: fadeIn 1s 3s both;
+      animation: fadeIn 1s 2.5s both;
       white-space: nowrap;
       transition: 0.3s;
       width: 150px;
