@@ -28,12 +28,15 @@ $color_cherry_2: #df5333;
 }
 
 .navigation_container {
-  width: 100%;
   position: relative;
+  width: 100%;
   min-height: calc(100vh - 60px);
-  background: linear-gradient(-45deg, #e9756e, #f5ddba, #eabeae);
-  z-index: 999;
+  background: linear-gradient(-45deg, #E9756E, #F5DDBA, #EABEAE);
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
   box-sizing: border-box;
+  z-index: 999;
+  transition: 2s;
   @include flex_center;
   * {
     position: relative;
@@ -446,17 +449,18 @@ $color_cherry_2: #df5333;
     animation-timing-function: ease;
   }
 }
-@keyframes gradientBG {
-    0% {
-        background: linear-gradient(-45deg, #e9756e, #f5ddba, #eabeae);
-
-    }
-    50% {
-        background: linear-gradient(-45deg, #f5ddba, #e9756e, #eabeae);
-
-    }
-    100% {
-        background: linear-gradient(-45deg, #e9756e, #f5ddba, #eabeae);
-
-    }
-}
+@-webkit-keyframes gradientBG {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+  }
+  @-moz-keyframes gradientBG {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+  }
+  @keyframes gradientBG { 
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+  }
