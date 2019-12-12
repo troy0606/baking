@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39.66 3.08">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #e29cff;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: #9e4f7e;
+      }
+    </style>
+  </defs>
+  <title>資產 9</title>
+  <g id="圖層_2" data-name="圖層 2">
+    <g id="圖層_1-2" data-name="圖層 1">
+      <g>
+        <g>
+          <path class="cls-1" d="M16,1.54A1.55,1.55,0,1,1,14.49,0,1.54,1.54,0,0,1,16,1.54Z"/>
+          <circle class="cls-2" cx="17.11" cy="1.54" r="1.54"/>
+          <circle class="cls-1" cx="25.17" cy="1.54" r="1.54"/>
+          <circle class="cls-2" cx="22.56" cy="1.54" r="1.54"/>
+        </g>
+        <g>
+          <circle class="cls-2" cx="8.1" cy="1.54" r="1.54"/>
+          <path class="cls-3" d="M10.86,1.54A1.55,1.55,0,1,1,9.32,0,1.54,1.54,0,0,1,10.86,1.54Z"/>
+          <circle class="cls-2" cx="31.56" cy="1.54" r="1.54"/>
+          <path class="cls-3" d="M28.81,1.54A1.54,1.54,0,1,0,30.35,0,1.54,1.54,0,0,0,28.81,1.54Z"/>
+        </g>
+        <g>
+          <circle class="cls-2" cx="1.54" cy="1.54" r="1.54"/>
+          <circle class="cls-2" cx="2.06" cy="1.54" r="1.54"/>
+          <circle class="cls-2" cx="38.12" cy="1.54" r="1.54"/>
+          <circle class="cls-2" cx="37.6" cy="1.54" r="1.54"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

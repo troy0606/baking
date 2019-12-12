@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8.55 8.55">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <title>資產 8</title>
+  <g id="圖層_2" data-name="圖層 2">
+    <g id="圖層_1-2" data-name="圖層 1">
+      <g>
+        <rect class="cls-1" x="4.02" width="0.51" height="8.55"/>
+        <rect class="cls-1" x="4.02" width="0.51" height="8.55" transform="translate(8.55 0) rotate(90)"/>
+      </g>
+    </g>
+  </g>
+</svg>

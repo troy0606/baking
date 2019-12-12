@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34.96 14.67">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #633e37;
+      }
+    </style>
+  </defs>
+  <title>資產 14</title>
+  <g id="圖層_2" data-name="圖層 2">
+    <g id="圖層_1-2" data-name="圖層 1">
+      <g>
+        <g>
+          <polygon class="cls-1" points="0.08 13.13 0 13.05 12.87 0 12.95 0.07 0.08 13.13"/>
+          <rect class="cls-1" x="28.43" y="-2.6" width="0.11" height="18.33" transform="translate(3.59 21.89) rotate(-44.59)"/>
+        </g>
+        <g>
+          <rect class="cls-1" x="2.76" y="9.82" width="13.38" height="0.11" transform="translate(-4.21 9.65) rotate(-45.34)"/>
+          <rect class="cls-1" x="25.46" y="3.18" width="0.11" height="13.38" transform="translate(0.42 20.75) rotate(-44.59)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
