@@ -4,9 +4,10 @@ import "../commom/navbar.scss";
 import { AiOutlineMenu } from "react-icons/ai";
 import { MdPerson } from "react-icons/md";
 import { FaShoppingCart } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
+
 function NavBar() {
-  const [logIn, setLogIn] = useState(false);
-  useEffect(() => {}, []);
+  const MemberLogState = useSelector(state => state.MemberLogState);
   return (
     <>
       <nav className="container-fulid navbar-container">
@@ -33,7 +34,7 @@ function NavBar() {
                   <Link>
                     <MdPerson />
                   </Link>
-                  {logIn ? (
+                  {MemberLogState ? (
                     <ul className="member-login">
                       <li>
                         <Link to="/member/">會員專區</Link>

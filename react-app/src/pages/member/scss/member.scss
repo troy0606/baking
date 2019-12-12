@@ -96,6 +96,14 @@
     }
     form {
       padding: 10px 0px;
+      .checkWarning {
+        left: 32%;
+        top: 72%;
+        position: absolute;
+        font-size: 12px;
+        font-weight: bold;
+        color: red;
+      }
     }
     .login_btn {
       cursor: pointer;
