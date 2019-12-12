@@ -5,7 +5,8 @@ import {
   Products,
   Teacher,
   Forum,
-  MemberLogIn_SignUp
+  MemberLogIn_SignUp,
+  Navigation
 } from "./routes/Rotues";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
@@ -25,6 +26,7 @@ function App() {
           <NavBar />
           <Switch>
             <Route path="/home" exact component={Home}></Route>
+            <Route path="/" exact component={Navigation}></Route>
             <Route
               path="/member/signup_Login"
               exact
