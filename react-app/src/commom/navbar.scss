@@ -8,6 +8,7 @@
   color: #fff;
   font-size: 20px;
   height: 60px;
+  z-index: 999;
   ul {
     height: 60px;
     img {
@@ -28,7 +29,6 @@
             width: 75px;
             font-size: 16px;
             background-color: #fff;
-            z-index: 2;
             height: 51.5px;
             li {
               margin: auto;
