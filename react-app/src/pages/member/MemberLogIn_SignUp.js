@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./scss/member.scss";
+import { LOG_IN_ACTION, LOG_OUT_ACTION } from "./Actions";
+import { useSelector, useDispatch } from "react-redux";
 
 const MemberLogIn_SignUp = () => {
   const [switchSign, setSwitchSign] = useState(false);
@@ -9,12 +11,14 @@ const MemberLogIn_SignUp = () => {
 
   const [checkType, setCheckType] = useState("");
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setLoading(true);
   }, []);
+
   useEffect(() => {
-    if (loading) {
+    if (loading && switchSign) {
       checkEmail(email);
     }
     function checkEmail(email) {
@@ -25,7 +29,24 @@ const MemberLogIn_SignUp = () => {
         setCheckType("");
       }
     }
-  }, [email, password]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email]);
+
+  useEffect(() => {
+    if (loading && switchSign) {
+      checkPassword(password);
+    }
+    function checkPassword(password) {
+      let pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+      //Minimum eight characters, at least one letter and one number:
+      if (password.search(pattern) == -1 && password != "") {
+        setCheckType("請輸入正確密碼格式");
+      } else {
+        setCheckType("");
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [password]);
   return (
     <>
       <div className="backGroundImg d-flex justify-content-center align-items-center">
@@ -41,9 +62,8 @@ const MemberLogIn_SignUp = () => {
                       className="form-control"
                       id="login_email"
                       placeholder="信箱"
+                      title="請輸入信箱"
                       onKeyUp={event => {
-                        if (email) {
-                        }
                         setEmail(event.target.value);
                       }}
                       required
@@ -61,8 +81,14 @@ const MemberLogIn_SignUp = () => {
                       required
                     />
                   </div>
-                  {checkType ? <p>{checkType}</p> : <></>}
-                  <h2 className="login_btn">登入</h2>
+                  <h2
+                    className="login_btn"
+                    onClick={() => {
+                      dispatch(LOG_IN_ACTION());
+                    }}
+                  >
+                    登入
+                  </h2>
                 </div>
               </form>
               <div className="flex-shrink-0 text-center forget_signUp">
@@ -88,6 +114,10 @@ const MemberLogIn_SignUp = () => {
                       className="form-control"
                       id="signUp_name"
                       placeholder="姓名"
+                      title="請輸入使用者姓名"
+                      onKeyUp={event => {
+                        setUserName(event.target.value);
+                      }}
                       required
                     />
                   </div>
@@ -97,6 +127,7 @@ const MemberLogIn_SignUp = () => {
                       className="form-control"
                       id="signUp_email"
                       placeholder="信箱"
+                      title="請輸入信箱"
                       onKeyUp={event => {
                         setEmail(event.target.value);
                       }}
@@ -108,6 +139,7 @@ const MemberLogIn_SignUp = () => {
                       type="password"
                       className="form-control"
                       id="signUp_password"
+                      title="必須包含一個數字或一個英文字，共8碼"
                       placeholder="密碼"
                       onKeyUp={event => {
                         setPassword(event.target.value);
@@ -115,7 +147,14 @@ const MemberLogIn_SignUp = () => {
                       required
                     />
                   </div>
-                  <h2 className="login_btn">註冊</h2>
+                  {checkType ? (
+                    <p className="checkWarning">{checkType}</p>
+                  ) : (
+                    <></>
+                  )}
+                  <h2 className="login_btn" onClick={() => {}}>
+                    註冊
+                  </h2>
                 </div>
               </form>
               <div className="flex-shrink-0 text-center forget_signUp">
