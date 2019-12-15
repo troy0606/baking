@@ -33,7 +33,7 @@ $color_cherry_2: #df5333;
   min-height: calc(100vh - 60px);
   background: linear-gradient(-45deg, #E9756E, #F5DDBA, #EABEAE);
   background-size: 400% 400%;
-  animation: gradientBG 10s ease infinite;
+  animation: gradientBG 10s linear infinite;
   box-sizing: border-box;
   z-index: 999;
   transition: 2s;
@@ -450,17 +450,17 @@ $color_cherry_2: #df5333;
   }
 }
 @-webkit-keyframes gradientBG {
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
+  0%{background-position:0% 0%}
+  50%{background-position:100% 0%}
+  100%{background-position:0% 0%}
   }
   @-moz-keyframes gradientBG {
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
+  0%{background-position:0% 0%}
+  50%{background-position:100% 0%}
+  100%{background-position:0% 0%}
   }
   @keyframes gradientBG { 
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
+  0%{background-position:0% 0%}
+  50%{background-position:100% 0%}
+  100%{background-position:0% 0%}
   }

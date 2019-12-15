@@ -4,10 +4,10 @@ function Navigation() {
   return (
     <>
       <div className="navigation_container">
+        <img className="bg-svg animate-svg" src="/images/assets/PIC (15).svg" />
         <img className="bg-svg animate-svg" src="/images/assets/PIC (2).svg" />
-        <img className="bg-svg animate-svg" src="/images/assets/PIC (3).svg" />
-        <img className="bg-svg animate-svg" src="/images/assets/PIC (4).svg" />
-        <img className="bg-svg animate-svg" src="/images/assets/PIC (5).svg" />
+        <img className="bg-svg animate-svg" src="/images/assets/PIC (1).svg" />
+        <img className="bg-svg animate-svg" src="/images/assets/PIC (19).svg" />
         <div className="cake_container">
           <div className="cake_title d-flex">
             <div className="d-flex justify-content-center">

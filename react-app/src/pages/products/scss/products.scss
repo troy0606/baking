@@ -50,14 +50,17 @@
       }
       li {
         padding: 10px;
-        width: 100px;
+        width: 150px;
         text-align: center;
-        background-color: #fff;
+        background-color: #e2b290e3;
         border-radius: 20px;
         cursor: pointer;
         &:hover {
-          background-color: $hover-color;
+          font-weight: 700;
+          letter-spacing: 7px;
+          transition: 0.3s;
         }
+
         @media (max-width: 576px) {
           margin: 10px 0;
         }
@@ -67,17 +70,66 @@
       border: solid 0.5px $footer-color;
     }
   }
+
   .products-product {
     margin: 40px 0 40px 0;
     @media (max-width: 768px) {
       margin: 0px 0px 0px 0px;
     }
     .products-card {
+      position: relative;
       justify-content: center;
-      width: 33%;
-      height: 300px;
+      width: 30%;
+      height: 260px;
+      margin: 15px 15px;
       background-color: #fff;
-      margin: 0 10px;
+      .img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: top center;
+        -moz-background-size: cover;
+        background-size: cover;
+      }
+      &:hover .img {
+        opacity: 0.5;
+        transition: 0.5s;
+      }
+      cursor: pointer;
+      .detail {
+        background-color: #e2b290e3;
+        display: none;
+        position: absolute;
+        z-index: 10;
+        bottom: 0;
+        width: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        span {
+          padding: 10px;
+        }
+        span:nth-child(1) {
+          color: rgb(68, 24, 24);
+          font-size: 24px;
+        }
+        span:nth-child(2) {
+          color: rgb(68, 24, 24);
+          font-size: 16px;
+        }
+      }
+      div,
+      &:hover .detail {
+        position: absolute;
+        display: flex;
+        z-index: 10;
+        color: $footer-color;
+        transition: 0.5s;
+      }
       @media (max-width: 768px) {
         width: 100%;
         margin: 10px 0;
@@ -86,5 +138,16 @@
     @media (max-width: 768px) {
       flex-direction: column;
     }
+  }
+  //---------------product-shop
+  .product-shop {
+    position: fixed;
+    width: 800px;
+    height: 600px;
+    background-color: #fff;
+    z-index: 999;
+    left: 50%;
+    top: calc(50% + 30px);
+    transform: translate(-50%, -50%);
   }
 }
