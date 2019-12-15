@@ -18,7 +18,6 @@ const db = mysql.createConnection(db_Obj);
 const bluebird = require("bluebird"); //使用兩次sql
 const bodyParser = require("body-parser");
 bluebird.promisifyAll(db);
-const io = require("socket.io")();
 
 db.connect(function(err) {
   if (err) {
@@ -68,6 +67,9 @@ app.use(
 
 const handmadeRoute = require("../routes/handmadeRoute");
 app.use("/handmade", handmadeRoute);
+
+const memberRoute = require("../routes/memberRoute");
+app.use("/member", memberRoute);
 
 // ---------中間層結束---------
 
