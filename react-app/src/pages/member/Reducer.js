@@ -14,4 +14,4 @@ const MemberLogState = (state = false, action) => {
   }
 };
 
-export default MemberLogState;
+export { MemberLogState };
