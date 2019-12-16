@@ -67,10 +67,12 @@ app.use(
 
 const handmadeRoute = require("../routes/handmadeRoute");
 app.use("/handmade", handmadeRoute);
-const product = require("../routes/product");
-app.use("/product", product);
+const productRoute = require("../routes/productRoute");
+app.use("/product", productRoute);
 const memberRoute = require("../routes/memberRoute");
 app.use("/member", memberRoute);
+const cartRoute = require("../routes/cartRoute");
+app.use("/cart", cartRoute);
 
 // ---------中間層結束---------
 
