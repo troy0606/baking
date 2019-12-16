@@ -116,7 +116,8 @@ function Products() {
                                 cartPost(
                                   count,
                                   items.product_price * count,
-                                  items.product_sid
+                                  items.product_sid,
+                                  memberSid
                                 )
                               }
                             />
@@ -140,10 +141,11 @@ function Products() {
     store.dispatch(GetProductData(postData));
     storeChange();
   }
-  function cartPost(count, priceCount, product_sid) {
+  function cartPost(count, priceCount, product_sid, memberSid) {
     console.log(count);
     console.log(priceCount);
     console.log(product_sid);
+    console.log(memberSid);
   }
 }
 
