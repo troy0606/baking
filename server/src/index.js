@@ -67,14 +67,10 @@ app.use(
 
 const handmadeRoute = require("../routes/handmadeRoute");
 app.use("/handmade", handmadeRoute);
-
-<<<<<<< HEAD
 const product = require("../routes/product");
 app.use("/product", product);
-=======
 const memberRoute = require("../routes/memberRoute");
 app.use("/member", memberRoute);
->>>>>>> 0c1ad6b03db765ae64d1b8b79512ee7945986abc
 
 // ---------中間層結束---------
 
