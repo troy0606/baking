@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./scss/member.scss";
-import { LOG_IN_ACTION, SIGN_UP_ACTION } from "./Actions";
+import { LOG_IN_ACTION, SIGN_UP_ACTION, LOGIN_ACTION } from "./Actions";
 import { useDispatch } from "react-redux";
 
 const MemberLogIn_SignUp = () => {
@@ -84,7 +84,7 @@ const MemberLogIn_SignUp = () => {
                   <h2
                     className="login_btn"
                     onClick={() => {
-                      dispatch(LOG_IN_ACTION());
+                      dispatch(LOGIN_ACTION(email, password));
                     }}
                   >
                     登入

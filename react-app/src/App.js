@@ -1,4 +1,5 @@
-import React, { BrowserRouter } from "react";
+import React, { BrowserRouter, useEffect } from "react";
+import axios from "axios";
 import {
   Home,
   Member,
@@ -18,7 +19,16 @@ import {
 } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/Store";
+
 function App() {
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/member/checklogin")
+      .then(result => {
+        console.log(result);
+      })
+      .catch();
+  }, []);
   return (
     <>
       <Provider store={store}>
