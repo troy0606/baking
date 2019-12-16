@@ -65,7 +65,8 @@ app.use(
 
 const handmadeRoute = require("../routes/handmadeRoute");
 app.use("/handmade", handmadeRoute);
-
+const product = require("../routes/product");
+app.use("/product", product);
 const memberRoute = require("../routes/memberRoute");
 app.use("/member", memberRoute);
 

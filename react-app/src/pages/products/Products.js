@@ -9,6 +9,7 @@ function Products() {
   const [storeData, setStoreData] = useState(store.getState());
   const [openShop, setOpenShop] = useState(null);
   const [count, setCount] = useState(1);
+  const [memberSid, setMemberSid] = useState(1);
   console.log(openShop);
   const storeChange = () => {
     setStoreData(store.getState());
@@ -33,7 +34,7 @@ function Products() {
         <div className="row">
           <div className="col-12 products-select">
             <ul className="d-flex justify-content-between">
-              <li onClick={() => selectProduct(null)}>本日精選</li>
+              <li onClick={() => selectProduct(null)}>全部商品</li>
               <li onClick={() => selectProduct(1)}>經典蛋糕</li>
               <li onClick={() => selectProduct(2)}>層次千層</li>
               <li onClick={() => selectProduct(3)}>美味泡芙</li>
@@ -109,7 +110,16 @@ function Products() {
                         <div className="d-flex justify-content-around pb-3 align-items-center">
                           <span className="cart">
                             +購物車:
-                            <FaShoppingCart style={{ fontSize: "24px" }} />
+                            <FaShoppingCart
+                              style={{ fontSize: "24px" }}
+                              onClick={() =>
+                                cartPost(
+                                  count,
+                                  items.product_price * count,
+                                  items.product_sid
+                                )
+                              }
+                            />
                           </span>
                           <span className="love">
                             +收藏:
@@ -129,6 +139,11 @@ function Products() {
   function selectProduct(postData) {
     store.dispatch(GetProductData(postData));
     storeChange();
+  }
+  function cartPost(count, priceCount, product_sid) {
+    console.log(count);
+    console.log(priceCount);
+    console.log(product_sid);
   }
 }
 
