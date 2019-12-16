@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./scss/member.scss";
-import { LOG_IN_ACTION, LOG_OUT_ACTION } from "./Actions";
-import { useSelector, useDispatch } from "react-redux";
+import { LOG_IN_ACTION, SIGN_UP_ACTION } from "./Actions";
+import { useDispatch } from "react-redux";
 
 const MemberLogIn_SignUp = () => {
   const [switchSign, setSwitchSign] = useState(false);
@@ -23,7 +23,7 @@ const MemberLogIn_SignUp = () => {
     }
     function checkEmail(email) {
       let pattern = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-      if (email.search(pattern) == -1 && email != "") {
+      if (email.search(pattern) === -1 && email !== "") {
         setCheckType("請輸入正確信箱格式");
       } else {
         setCheckType("");
@@ -39,7 +39,7 @@ const MemberLogIn_SignUp = () => {
     function checkPassword(password) {
       let pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
       //Minimum eight characters, at least one letter and one number:
-      if (password.search(pattern) == -1 && password != "") {
+      if (password.search(pattern) === -1 && password !== "") {
         setCheckType("請輸入正確密碼格式");
       } else {
         setCheckType("");
@@ -152,7 +152,12 @@ const MemberLogIn_SignUp = () => {
                   ) : (
                     <></>
                   )}
-                  <h2 className="login_btn" onClick={() => {}}>
+                  <h2
+                    className="login_btn"
+                    onClick={() => {
+                      dispatch(SIGN_UP_ACTION(userName, email, password));
+                    }}
+                  >
                     註冊
                   </h2>
                 </div>
