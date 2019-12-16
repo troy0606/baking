@@ -51,13 +51,11 @@ app.use(cors(corsOptions)); //使用開放網域
 app.use(
   session({
     //上面兩個未來預設可能會變成true先設定好
-    saveUninitialized: false,
-    resave: false,
+    saveUninitialized: true,
+    resave: true,
     secret: "69",
     //存活時間cookie底下才有session
-    cookie: {
-      maxAge: 1200000
-    }
+    cookie: { maxAge: 8 * 60 * 60 * 1000 }
   })
 );
 
@@ -68,13 +66,8 @@ app.use(
 const handmadeRoute = require("../routes/handmadeRoute");
 app.use("/handmade", handmadeRoute);
 
-<<<<<<< HEAD
-const product = require("../routes/product");
-app.use("/product", product);
-=======
 const memberRoute = require("../routes/memberRoute");
 app.use("/member", memberRoute);
->>>>>>> 0c1ad6b03db765ae64d1b8b79512ee7945986abc
 
 // ---------中間層結束---------
 
