@@ -3,10 +3,13 @@ import "./scss/products.scss";
 // import { Link } from "react-router-dom";
 import { GetProductData } from "./Actions";
 import store from "../../redux/Store";
+import { FaShoppingCart, FaHeart } from "react-icons/fa";
+
 function Products() {
   const [storeData, setStoreData] = useState(store.getState());
-  // let state = useSelector(state => ({ data: state.ProductData }));
-  // console.log(state);
+  const [openShop, setOpenShop] = useState(null);
+  const [count, setCount] = useState(1);
+  console.log(openShop);
   const storeChange = () => {
     setStoreData(store.getState());
   };
@@ -14,7 +17,7 @@ function Products() {
   useEffect(() => {
     store.dispatch(GetProductData());
     storeChange();
-  }, [store]);
+  }, []);
   return (
     <>
       <div className="container products-container">
@@ -44,7 +47,11 @@ function Products() {
               storeData.ProductData.map((items, key) => {
                 return (
                   <>
-                    <div key={key} className="products-card">
+                    <div
+                      key={key}
+                      className="products-card"
+                      onClick={() => openShop == null && setOpenShop(key)}
+                    >
                       <div className="detail justify-content-around align-items-center">
                         <span>{items.product_name}</span>
                         <span>{items.product_price} ($)</span>
@@ -59,20 +66,55 @@ function Products() {
                         }}
                       ></div>
                     </div>
-                    <div className="product-shop d-flex">
-                      <div className="product-shop-left">
-                        asda
-                        <img src="" alt="" />
+                    <div
+                      className="product-shop"
+                      style={{ display: openShop == key && "flex" }}
+                    >
+                      <div
+                        className="close"
+                        onClick={() => {
+                          setOpenShop(null);
+                          setCount(1);
+                        }}
+                      >
+                        <div></div>
+                        <div></div>
+                      </div>
+                      <div className="product-shop-left d-flex justify-content-center">
+                        <img
+                          src={`/images/products/${items.product_img_1}`}
+                          alt=""
+                        />
                       </div>
                       <div className="product-shop-right d-flex flex-column">
-                        <h1>123</h1>
-                        <p>aa</p>
-                        <div className="d-flex justify-content-center align-items-center">
-                          <select name="" id="">
-                            <option value="1">1個</option>
-                            <option value="1">2個</option>
-                          </select>
-                          <span>300</span>
+                        <h1>木木甜心</h1>
+                        <p>
+                          好吃又好玩 天氣真好 好吃又好玩 天氣真好 好吃又好玩
+                          天氣真好 好吃又好玩 天氣真好
+                        </p>
+                        <div className="d-flex align-items-center justify-content-around w-100  p-3">
+                          <div className="d-flex align-items-center">
+                            <span>數量：</span>
+                            <select
+                              name=""
+                              id=""
+                              onChange={e => setCount(e.target.value)}
+                            >
+                              <option value="1">1個</option>
+                              <option value="2">2個</option>
+                            </select>
+                          </div>
+                          <span>總價：{items.product_price * count}</span>
+                        </div>
+                        <div className="d-flex justify-content-around pb-3 align-items-center">
+                          <span className="cart">
+                            +購物車:
+                            <FaShoppingCart style={{ fontSize: "24px" }} />
+                          </span>
+                          <span className="love">
+                            +收藏:
+                            <FaHeart style={{ fontSize: "24px" }} />
+                          </span>
                         </div>
                       </div>
                     </div>
