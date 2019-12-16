@@ -69,6 +69,9 @@ app.use(
 const handmadeRoute = require("../routes/handmadeRoute");
 app.use("/handmade", handmadeRoute);
 
+const product = require("../routes/product");
+app.use("/product", product);
+
 // ---------中間層結束---------
 
 //----------網頁錯誤----------
