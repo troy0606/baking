@@ -3,11 +3,18 @@ import { Link } from "react-router-dom";
 import "../commom/navbar.scss";
 import { AiOutlineMenu } from "react-icons/ai";
 import { MdPerson } from "react-icons/md";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaRegTrashAlt } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
+import { GetCartData_Post, DelCartData_Post } from "../pages/cart/Actions";
 
 function NavBar() {
   const MemberLogState = useSelector(state => state.MemberLogState);
+  const CartData = useSelector(state => state.CartData);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(GetCartData_Post(1));
+    console.log(CartData);
+  }, []);
   return (
     <>
       <nav className="container-fulid navbar-container">
@@ -61,11 +68,41 @@ function NavBar() {
                   </Link>
                   <div className="smell-cart-sidebar">
                     <ul>
-                      <li>1</li>
-                      <li>2</li>
-                      <li>3</li>
-                      <li>4</li>
+                      {CartData.map((v, key) => {
+                        return (
+                          <li
+                            className="d-flex justify-content-around"
+                            key={key}
+                          >
+                            <div className="smell-cart-left">
+                              <img
+                                src={`/images/products/${v.product_img_1}`}
+                                alt=""
+                              />
+                            </div>
+                            <div className="smell-cart-middle d-flex flex-column justify-content-between">
+                              <span>{v.product_name}</span>
+                              <span>
+                                {v.product_quantity} x {v.product_price}元
+                              </span>
+                            </div>
+                            <div
+                              className="smell-cart-right"
+                              onClick={() => {
+                                delCartData(v, key);
+                              }}
+                            >
+                              <FaRegTrashAlt></FaRegTrashAlt>
+                            </div>
+                          </li>
+                        );
+                      })}
                     </ul>
+                    <div className="smell-cart-bottom d-flex justify-content-around">
+                      <span>合計：500元</span>
+                      <span>前往結帳頁面</span>
+                    </div>
+                    <div className="smell-cart-close">x</div>
                   </div>
                 </li>
               </ul>
@@ -78,5 +115,10 @@ function NavBar() {
       </nav>
     </>
   );
-}
+  function delCartData(v, key) {
+    console.log(key);
+    console.log(v);
+    dispatch(DelCartData_Post(v.member_sid, v.cart_sid, key));
+  }
+} 
 export default NavBar;

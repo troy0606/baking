@@ -60,7 +60,10 @@ app.use(
 );
 
 // ---------中間層(mid)結束---------
-
+app.use((req, res, next) => {
+  if (!req.session.cart) req.session.cart = [];
+  next();
+});
 //---------中間層(route)路由---------
 
 const handmadeRoute = require("../routes/handmadeRoute");

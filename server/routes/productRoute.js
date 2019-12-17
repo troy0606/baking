@@ -10,21 +10,22 @@ const db_Obj = {
 const db = mysql.createConnection(db_Obj);
 //---------------------------------------
 class products_data {
-  constructor() {}
-  getProductsData(category) {
+  constructor(product_category) {
+    this.product_category = product_category;
+  }
+  getProductsData() {
     let sql = `SELECT * FROM product WHERE 1 ${
-      category ? "And product_category =" + category : ""
+      this.product_category
+        ? "And product_category =" + this.product_category
+        : ""
     }`;
     return sql;
   }
 }
 //---------------------------------------
 router.post("/", (req, res) => {
-  let data = new products_data();
-  let category = req.body.product_category;
-  console.log(req.body);
-  console.log(data.getProductsData());
-  db.query(data.getProductsData(category), (error, rows) => {
+  let data = new products_data(req.body.product_category);
+  db.query(data.getProductsData(), (error, rows) => {
     console.log(rows);
     if (rows.length >= 0) {
       res.json({

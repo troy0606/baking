@@ -4,13 +4,13 @@ import "./scss/products.scss";
 import { GetProductData } from "./Actions";
 import store from "../../redux/Store";
 import { FaShoppingCart, FaHeart } from "react-icons/fa";
+import { InsertCartData_Post } from "../cart/Actions";
 
 function Products() {
   const [storeData, setStoreData] = useState(store.getState());
   const [openShop, setOpenShop] = useState(null);
   const [count, setCount] = useState(1);
   const [memberSid, setMemberSid] = useState(1);
-  console.log(openShop);
   const storeChange = () => {
     setStoreData(store.getState());
   };
@@ -55,7 +55,7 @@ function Products() {
                     >
                       <div className="detail justify-content-around align-items-center">
                         <span>{items.product_name}</span>
-                        <span>{items.product_price} ($)</span>
+                        <span>{items.product_price}元</span>
                       </div>
                       <div
                         className="img"
@@ -109,21 +109,16 @@ function Products() {
                         </div>
                         <div className="d-flex justify-content-around pb-3 align-items-center">
                           <span className="cart">
-                            +購物車:
+                            購物車
                             <FaShoppingCart
                               style={{ fontSize: "24px" }}
                               onClick={() =>
-                                cartPost(
-                                  count,
-                                  items.product_price * count,
-                                  items.product_sid,
-                                  memberSid
-                                )
+                                cartPost(count, items.product_sid, memberSid)
                               }
                             />
                           </span>
                           <span className="love">
-                            +收藏:
+                            收藏
                             <FaHeart style={{ fontSize: "24px" }} />
                           </span>
                         </div>
@@ -135,17 +130,15 @@ function Products() {
           </div>
         </div>
       </div>
+      <div className="coverBg" style={{ display: openShop && "block" }}></div>
     </>
   );
   function selectProduct(postData) {
     store.dispatch(GetProductData(postData));
     storeChange();
   }
-  function cartPost(count, priceCount, product_sid, memberSid) {
-    console.log(count);
-    console.log(priceCount);
-    console.log(product_sid);
-    console.log(memberSid);
+  function cartPost(count, product_sid, memberSid) {
+    store.dispatch(InsertCartData_Post(memberSid, product_sid, count));
   }
 }
 
