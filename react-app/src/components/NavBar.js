@@ -11,6 +11,8 @@ function NavBar() {
   const MemberLogState = useSelector(state => state.MemberLogState);
   const CartData = useSelector(state => state.CartData);
   const dispatch = useDispatch();
+  const [cartOpen, setCartOpen] = useState(false);
+  let cartTotal = 0;
   useEffect(() => {
     dispatch(GetCartData_Post(1));
     console.log(CartData);
@@ -64,11 +66,17 @@ function NavBar() {
                 </li>
                 <li className="smell-cart">
                   <Link>
-                    <FaShoppingCart />
+                    <FaShoppingCart onClick={() => setCartOpen(!cartOpen)} />
                   </Link>
-                  <div className="smell-cart-sidebar">
+                  <div
+                    className="smell-cart-sidebar"
+                    style={{ top: cartOpen == true ? "60px" : "-1000%" }}
+                  >
                     <ul>
+                      {CartData.length == 0 && <li className="d-flex justify-content-center align-items-center flex-column h-100">沒有商品</li>}
                       {CartData.map((v, key) => {
+                        cartTotal =
+                          cartTotal + v.product_quantity * v.product_price;
                         return (
                           <li
                             className="d-flex justify-content-around"
@@ -99,10 +107,15 @@ function NavBar() {
                       })}
                     </ul>
                     <div className="smell-cart-bottom d-flex justify-content-around">
-                      <span>合計：500元</span>
+                      <span>合計：{cartTotal}元</span>
                       <span>前往結帳頁面</span>
                     </div>
-                    <div className="smell-cart-close">x</div>
+                    <div
+                      className="smell-cart-close"
+                      onClick={() => setCartOpen(false)}
+                    >
+                      x
+                    </div>
                   </div>
                 </li>
               </ul>
@@ -120,5 +133,5 @@ function NavBar() {
     console.log(v);
     dispatch(DelCartData_Post(v.member_sid, v.cart_sid, key));
   }
-} 
+}
 export default NavBar;

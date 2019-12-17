@@ -11,6 +11,10 @@ function Products() {
   const [openShop, setOpenShop] = useState(null);
   const [count, setCount] = useState(1);
   const [memberSid, setMemberSid] = useState(1);
+  let option_i = [];
+  for (let i = 1; i <= 20; ++i) {
+    option_i.push(<option value={i}>{i}個</option>);
+  }
   const storeChange = () => {
     setStoreData(store.getState());
   };
@@ -19,6 +23,7 @@ function Products() {
     store.dispatch(GetProductData());
     storeChange();
   }, []);
+
   return (
     <>
       <div className="container products-container">
@@ -88,11 +93,8 @@ function Products() {
                         />
                       </div>
                       <div className="product-shop-right d-flex flex-column">
-                        <h1>木木甜心</h1>
-                        <p>
-                          好吃又好玩 天氣真好 好吃又好玩 天氣真好 好吃又好玩
-                          天氣真好 好吃又好玩 天氣真好
-                        </p>
+                        <h1>{items.product_name}</h1>
+                        <p>{items.product_detail}</p>
                         <div className="d-flex align-items-center justify-content-around w-100  p-3">
                           <div className="d-flex align-items-center">
                             <span>數量：</span>
@@ -101,8 +103,7 @@ function Products() {
                               id=""
                               onChange={e => setCount(e.target.value)}
                             >
-                              <option value="1">1個</option>
-                              <option value="2">2個</option>
+                              {option_i}
                             </select>
                           </div>
                           <span>總價：{items.product_price * count}</span>

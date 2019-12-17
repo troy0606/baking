@@ -82,16 +82,16 @@
       .smell-cart-sidebar {
         display: block;
         width: 350px;
-        top: 60px;
         left: 50%;
         transform: translate(-50%, 0);
+        transition: 1s;
         position: absolute;
         ul {
           background-color: #352c2a88;
-          min-height: 700px;
-          // max-height: 200px;
+          min-height: 400px;
+          max-height: 100vh;
           padding: 10px 0;
-          overflow-y: scroll;
+          overflow-y: auto;
           position: relative;
           li {
             margin: 10px 10px;
