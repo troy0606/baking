@@ -1,6 +1,9 @@
 import { INSERT_carData } from "./AcctionType";
 import { GET_carData } from "./AcctionType";
 import { Del_cartData } from "./AcctionType";
+import { INSERT_orderData } from "./AcctionType";
+import { Del_orderData } from "./AcctionType";
+import { Push_orderData } from "./AcctionType";
 
 const CartData = (state = [], action) => {
   switch (action.type) {
@@ -27,4 +30,16 @@ const CartData = (state = [], action) => {
   }
 };
 
-export { CartData };
+const OrderCart = (state = [], action) => {
+  switch (action.type) {
+    case INSERT_orderData: {
+      let newState = action.data;
+      return newState;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
+export { CartData, OrderCart };

@@ -1,0 +1,267 @@
+import React, { useEffect, useState } from "react";
+import "./scss/cart.scss";
+import $ from "jquery";
+import {
+  DelCartData_Post,
+  InsertCartData_Post,
+  selectOneCart_Post,
+  InsertOrderData
+} from "./Actions";
+import store from "../../redux/Store";
+import { useSelector, useDispatch } from "react-redux";
+
+
+function Cart() {
+  const CartData = useSelector(state => state.CartData);
+  const OrderCart = useSelector(state => state.OrderCart);
+  const dispatch = useDispatch();
+  console.log(OrderCart);
+  const [memberSid, setMemberSid] = useState(1);
+  // const [orderCart, setOrderCart] = useState([]);
+  const [step, setStep] = useState(0);
+  useEffect(() => {
+    $("#chekBox-all-input").click(function(e) {
+      if (this.checked) {
+        $(".check-box-product").prop("checked", true);
+        $(".check-box-product").attr("checked", true);
+        $(this).prop("checked", true);
+        $(this).attr("checked", true);
+        $(".cart-item").css("background", "#fff");
+      } else {
+        $(".check-box-product").prop("checked", false);
+        $(".check-box-product").attr("checked", false);
+        $(this).prop("checked", false);
+        $(this).attr("checked", false);
+        $(".cart-item").css("background", "none");
+      }
+    });
+    $(".check-box-product").on("click", function(e) {
+      if (this.checked) {
+        $(this)
+          .parent(".cart-item")
+          .css("background", "#fff");
+      }
+      if (this.checked == false) {
+        $(this)
+          .parent(".cart-item")
+          .css("background", "none");
+      }
+      allchk();
+    });
+  });
+  // useEffect(() => {
+  //   console.log(orderCart, "這才是要傳給訂單的");
+  // }, [orderCart]);
+  console.log(CartData, "cartData");
+  let option_i = [];
+  for (let i = 1; i <= 20; ++i) {
+    option_i.push(<option value={i}>{i}個</option>);
+  }
+
+  return (
+    <>
+      <div className="cart-container">
+        <div className="step-icon-items">
+          <div className="step1">
+            <div className="icon-item">
+              <div className="icon">1</div>
+            </div>
+            <span>確認金額＆數量</span>
+          </div>
+          <div className="step-connector"></div>
+          <div className="step2">
+            <div className="icon-item">
+              <div className="icon">2</div>
+            </div>
+            <span>填寫資料與付款</span>
+          </div>
+        </div>
+        <input
+          type="checkbox"
+          className="checkBox-all-input"
+          id="chekBox-all-input"
+          onClick={e => oderHandler(e)}
+        />
+        <label htmlFor="chekBox-all-input">選擇全部</label>
+        <div className="cart-shop">
+          <div className="cart-shop-left">
+            <ul className="cart-items">
+              {CartData.map((item, key) => {
+                return (
+                  <li className="cart-item">
+                    <input
+                      type="checkbox"
+                      className="check-box-product"
+                      onClick={e => {
+                        cartCheck(item.cart_sid, e);
+                      }}
+                    />
+                    <div className="img-box">
+                      <img
+                        src={`/images/products/${item.product_img_1}`}
+                        alt=""
+                      />
+                    </div>
+                    <span className="product-name">
+                      名稱:{item.product_name}
+                    </span>
+                    <div className="select-box">
+                      <label htmlFor="">數量：</label>
+                      <select
+                        name=""
+                        id="select-product-number"
+                        onChange={e => {
+                          console.log(e.target.value);
+                          console.log(item.product_sid);
+                          cartPost(
+                            e.target.value,
+                            item.product_sid,
+                            item.member_sid,
+                            item.cart_sid
+                          );
+                        }}
+                      >
+                        {option_i.map((op_item, op_key) => {
+                          return (
+                            <>
+                              <option
+                                value={`${op_key + 1}`}
+                                selected={
+                                  item.product_quantity == op_key + 1
+                                    ? true
+                                    : false
+                                }
+                              >
+                                {op_key + 1}
+                              </option>
+                            </>
+                          );
+                        })}
+                      </select>
+                    </div>
+                    <span>{item.product_price * item.product_quantity}元</span>
+                    <div
+                      className="del-cart-item"
+                      onClick={() => {
+                        console.log(key);
+                        delCartData(item, key);
+                      }}
+                    >
+                      x
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <div className="cart-shop-right">
+            <h2>訂單摘要</h2>
+            <ul>
+              <li>
+                <span>商品總價</span>
+                <span>元</span>
+              </li>
+              <li>
+                <span>目前紅利</span>
+                <span>300點</span>
+              </li>
+              <li>
+                <span>欲使用紅利</span>
+                <input type="text" value="" />
+              </li>
+              <li>
+                <span>使用優惠卷</span>
+                <input type="text" value="" />
+              </li>
+              <li>
+                <span>優惠卷折扣</span>
+                <span>折</span>
+              </li>
+              <li>
+                <span>紅利折扣</span>
+                <span>點</span>
+              </li>
+              <hr />
+              <li className="total">
+                <span>結帳總金額</span>
+                <span>500元</span>
+              </li>
+              <li className="count-btn">
+                <input
+                  type="button"
+                  value="前往結帳"
+                  onClick={() => {
+                    console.log(OrderCart);
+                  }}
+                />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+  function cartPost(count, product_sid, memberSid, sid) {
+    let handler = true;
+    dispatch(
+      InsertCartData_Post(
+        memberSid,
+        product_sid,
+        count,
+        OrderCart,
+        sid,
+        handler
+      )
+    );
+  }
+
+  function delCartData(v, key) {
+    let newVarray = [];
+    newVarray.push(v);
+    console.log(key);
+    console.log(v);
+    dispatch(DelCartData_Post(v.member_sid, v.cart_sid, key));
+    let cart2 = CartData.filter(item => {
+      return !newVarray.some(item2 => {
+        console.log(item2);
+        return item.cart_sid == item2.cart_sid;
+      });
+    });
+    const action = InsertOrderData(cart2);
+    dispatch(action);
+  }
+  function oderHandler(e) {
+    console.log(e.target);
+    if (e.target.checked) {
+      const action = InsertOrderData(CartData);
+      dispatch(action);
+    } else {
+      const action = InsertOrderData([]);
+      dispatch(action);
+    }
+  }
+  function cartCheck(sid, e) {
+    dispatch(selectOneCart_Post(sid, e, OrderCart));
+  }
+  ///----
+  function allchk() {
+    var chknum = $(".cart-items :checkbox").length; //选项总个数
+    var chk = 0;
+    $(".cart-items :checkbox").each(function() {
+      if ($(this).prop("checked")) {
+        chk++;
+      }
+    });
+    if (chknum == chk) {
+      //全选
+      $("#chekBox-all-input").attr("checked", true);
+      $("#chekBox-all-input").prop("checked", true);
+    } else {
+      //不全选
+      $("#chekBox-all-input").attr("checked", false);
+      $("#chekBox-all-input").prop("checked", false);
+    }
+  }
+}
+
+export default Cart;

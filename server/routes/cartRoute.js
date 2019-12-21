@@ -36,6 +36,11 @@ class cart_data {
     INNER JOIN product  ON cart.product_sid = product.product_sid WHERE cart.member_sid = ${this.member_sid};`;
     return sql;
   }
+  selectOneCart() {
+    let sql = `SELECT * FROM cart 
+    INNER JOIN product  ON cart.product_sid = product.product_sid WHERE cart_sid = ${this.cart_sid};`;
+    return sql;
+  }
   updataCart() {
     let sql = `UPDATE cart SET product_quantity = ${this.quantity} WHERE  member_sid = ${this.member_sid} AND product_sid = ${this.product_sid} `;
     return sql;
@@ -49,6 +54,8 @@ class cart_data {
 //---------------------------------------
 router.post("/", (req, res) => {
   console.log(req.body);
+
+  
   let data = new cart_data(
     req.body.member_sid,
     req.body.product_sid,
@@ -117,6 +124,29 @@ router.post("/", (req, res) => {
       console.log("error: " + error);
     });
 });
+router.post("/selectOneCart", (req, res) => {
+  console.log(req.body);
+  let data = new cart_data("","","",req.body.cart_sid);
+  db.queryAsync(data.selectOneCart())
+    .then(result => {
+      if (result) {
+        res.json({
+          status: "202",
+          message: "資料取得",
+          data: result
+        });
+      } else {
+        res.json({
+          status: "402",
+          message: "資料取得失敗"
+        });
+      }
+    })
+    .catch(error => {
+      console.log("error: " + error);
+    });
+});
+
 router.post("/smallcart", (req, res) => {
   console.log(req.body);
   let data = new cart_data(req.body.member_sid);

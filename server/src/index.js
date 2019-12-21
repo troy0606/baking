@@ -31,7 +31,7 @@ db.connect(function(err) {
 // ---------模組導入結束---------
 
 // ---------中間層(mid)---------
-const whitelist = ["http://localhost:3000", undefined];
+const whitelist = ["http://localhost:3000", undefined,"http://localhost:5000/"];
 let corsOptions = {
   credentials: true,
   origin: function(origin, callback) {
@@ -44,10 +44,10 @@ let corsOptions = {
     }
   }
 };
+app.use(cors(corsOptions)); //使用開放網域
 app.use(express.static("public")); //靜態資料夾
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors(corsOptions)); //使用開放網域
 app.use(
   session({
     //上面兩個未來預設可能會變成true先設定好
@@ -60,10 +60,10 @@ app.use(
 );
 
 // ---------中間層(mid)結束---------
-app.use((req, res, next) => {
-  if (!req.session.cart) req.session.cart = [];
-  next();
-});
+// app.use((req, res, next) => {
+//   if (!req.session.cart) req.session.cart = [];
+//   next();
+// });
 //---------中間層(route)路由---------
 
 const handmadeRoute = require("../routes/handmadeRoute");
