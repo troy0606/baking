@@ -1,5 +1,6 @@
 import { LOG_IN, LOG_OUT, SIGN_UP_PERSON } from "./AcctionType";
 import axios from "axios";
+// axios.defaults.withCredentials = true;
 
 export const LOG_IN_ACTION = () => ({
   type: LOG_IN
@@ -43,11 +44,12 @@ export const LOGIN_ACTION = (email, password) => {
       .post("http://localhost:5000/member/login", {
         email,
         password
-      })
+      },{withCredentials: true})
       .then(result => {
         if (result.data.status == 200) {
           dispatch(LOG_IN_ACTION());
         }
+        console.log(result.data);
         return result;
       })
       .then(result => {
