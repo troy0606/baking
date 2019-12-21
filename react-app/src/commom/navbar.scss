@@ -133,6 +133,17 @@
           }
           span {
             font-size: 16px;
+            a {
+              font-size: 16px;
+              padding: 0px;
+              display: block;
+              cursor: pointer;
+              color: $footer-color;
+              &:hover {
+                border-radius: 0px;
+                background-color: #fff;
+              }
+            }
           }
         }
         .smell-cart-close {

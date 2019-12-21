@@ -22,6 +22,7 @@ router.use(
     saveUninitialized: true,
     resave: true,
     secret: "69",
+
     //存活時間cookie底下才有session
     cookie: { maxAge: 8 * 60 * 60 * 1000 }
   })
@@ -71,7 +72,12 @@ router.get("/checklogin", (req, res) => {
     db.queryAsync(
       `SELECT * FROM member WHERE member_sid = ${req.session.memberLoginID}`
     ).then(result => {
-      console.log(result);
+      res.json({
+        status: "202",
+        message: "登入",
+        data:result
+      });
+      // console.log(result)
     });
   } else {
     res.json({

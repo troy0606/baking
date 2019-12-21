@@ -1,4 +1,4 @@
-import React, { BrowserRouter, useEffect } from "react";
+import React, { BrowserRouter, useEffect, useState } from "react";
 import axios from "axios";
 import {
   Home,
@@ -7,7 +7,8 @@ import {
   Teacher,
   Forum,
   MemberLogIn_SignUp,
-  Navigation
+  Navigation,
+  Cart
 } from "./routes/Rotues";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
@@ -21,9 +22,12 @@ import { Provider } from "react-redux";
 import store from "./redux/Store";
 
 function App() {
+  const [orderCart, setOrderCart] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/member/checklogin")
+      .get("http://localhost:5000/member/checklogin", {
+        withCredentials: true
+      })
       .then(result => {
         console.log(result);
       })
@@ -46,6 +50,11 @@ function App() {
             <Route path="/products" exact component={Products}></Route>
             <Route path="/teacher" exact component={Teacher}></Route>
             <Route path="/forum" exact component={Forum}></Route>
+            <Route
+              path="/cart"
+              exact
+              component={() => <Cart orderCart={orderCart} />}
+            ></Route>
             <Route path="" component={() => 404} />
           </Switch>
           <Footer />

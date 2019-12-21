@@ -1,0 +1,40 @@
+@function pxToVw($px) {
+  @return $px * 100 / 1920 + vw;
+} //字體大小用的函示可以自適應
+
+@mixin clearfix() {
+  &::after {
+    display: block;
+    clear: both;
+    content: "";
+  }
+} //清除浮動
+
+@mixin circle($size) {
+  border-radius: 50%;
+  height: $size;
+  width: $size;
+} //圓形
+
+@mixin text($font-size: 16px, $color: #000, $letter_spacing: 16px) {
+  font-size: $font-size;
+  color: $color;
+  letter-spacing: $letter_spacing;
+} //字形
+
+@mixin size($w, $h) {
+  width: $w;
+  height: $h;
+} //大小
+
+@mixin center {
+  position: absoulte;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+} //垂直水平置中
+
+@mixin layout-height-calc($footer-h, $header-h) {
+  margin-top: $header-h;
+  min-height: calc(100vh - #{$footer-h + $header-h});
+} //大小

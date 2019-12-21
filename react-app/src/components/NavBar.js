@@ -5,8 +5,11 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { MdPerson } from "react-icons/md";
 import { FaShoppingCart, FaRegTrashAlt } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-import { GetCartData_Post, DelCartData_Post } from "../pages/cart/Actions";
-
+import {
+  GetCartData_Post,
+  DelCartData_Post,
+  InsertOrderData
+} from "../pages/cart/Actions";
 function NavBar() {
   const MemberLogState = useSelector(state => state.MemberLogState);
   const CartData = useSelector(state => state.CartData);
@@ -73,7 +76,11 @@ function NavBar() {
                     style={{ top: cartOpen == true ? "60px" : "-1000%" }}
                   >
                     <ul>
-                      {CartData.length == 0 && <li className="d-flex justify-content-center align-items-center flex-column h-100">沒有商品</li>}
+                      {CartData.length == 0 && (
+                        <li className="d-flex justify-content-center align-items-center flex-column h-100">
+                          沒有商品
+                        </li>
+                      )}
                       {CartData.map((v, key) => {
                         cartTotal =
                           cartTotal + v.product_quantity * v.product_price;
@@ -108,7 +115,11 @@ function NavBar() {
                     </ul>
                     <div className="smell-cart-bottom d-flex justify-content-around">
                       <span>合計：{cartTotal}元</span>
-                      <span>前往結帳頁面</span>
+                      <span>
+                        <Link onClick={() => clearOrderData()}>
+                          前往結帳頁面
+                        </Link>
+                      </span>
                     </div>
                     <div
                       className="smell-cart-close"
@@ -129,9 +140,23 @@ function NavBar() {
     </>
   );
   function delCartData(v, key) {
+    let newVarray = [];
+    newVarray.push(v);
     console.log(key);
     console.log(v);
     dispatch(DelCartData_Post(v.member_sid, v.cart_sid, key));
+    let cart2 = CartData.filter(item => {
+      return !newVarray.some(item2 => {
+        console.log(item2);
+        return item.cart_sid == item2.cart_sid;
+      });
+    });
+    console.log(cart2);
+    const action = InsertOrderData(cart2);
+    dispatch(action);
+  }
+  function clearOrderData() {
+    window.location.href = "http://localhost:3000/cart/";
   }
 }
 export default NavBar;

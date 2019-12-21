@@ -1,6 +1,3 @@
-@function pxToVw($px) {
-  @return $px * 100 / 1920 + vw;
-} //字體大小用的函示可以自適應
 $main-color: #f2dbb8; //主色,背景
 $footer-color: #352c2a; //字體顏色和FOOTER顏色
 $header-color: #de726b; //輔色
