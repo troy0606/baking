@@ -18,8 +18,8 @@ const session = require("express-session"); //session設定
 router.use(
   session({
     //上面兩個未來預設可能會變成true先設定好
-    saveUninitialized: true,
-    resave: true,
+    saveUninitialized: false,
+    resave: false,
     secret: "69",
     //存活時間cookie底下才有session
     cookie: { maxAge: 8 * 60 * 60 * 1000 }
@@ -65,12 +65,12 @@ class LogIn {
 //  建構式結束
 
 router.get("/checklogin", (req, res) => {
-  console.log(req.session);
+  console.log("memberLoginID: " + req.session[0]);
   if (req.session.memberLoginID) {
     db.queryAsync(
       `SELECT * FROM member WHERE member_sid = ${req.session.memberLoginID}`
     ).then(result => {
-      console.log(result);
+      // console.log(result);
     });
   } else {
     res.json({
@@ -96,7 +96,6 @@ router.post("/login", (req, res) => {
     .then(results => {
       if (results.length !== 0) {
         req.session.memberLoginID = results[0].member_sid;
-        req.session.save();
         res.json({
           status: "200",
           message: "會員登入",
