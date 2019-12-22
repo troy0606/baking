@@ -78,15 +78,80 @@
       }
     }
     .smell-cart {
+      position: relative;
       .smell-cart-sidebar {
-        display: none;
-        width: 375px;
-        height: 100vh;
-        background-color: $footer-color;
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        right: 0;
+        display: block;
+        width: 350px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        transition: 1s;
+        position: absolute;
+        ul {
+          background-color: #352c2a88;
+          min-height: 400px;
+          max-height: 100vh;
+          padding: 10px 0;
+          overflow-y: auto;
+          position: relative;
+          li {
+            margin: 10px 10px;
+            .smell-cart-left {
+              flex: 0.3;
+              img {
+                width: 60px;
+              }
+            }
+            .smell-cart-middle {
+              flex: 0.5;
+              padding: 5px;
+              span {
+                font-size: 16px;
+              }
+            }
+            .smell-cart-right {
+              margin-top: auto;
+              padding: 5px;
+              cursor: pointer;
+              font-size: 14px;
+              cursor: pointer;
+            }
+          }
+          li:not(:last-child) {
+            border-bottom: 1px solid #fff;
+          }
+        }
+        .smell-cart-bottom {
+          width: 350px;
+          height: 40px;
+          background-color: rgba(255, 255, 255, 0.548);
+          color: $footer-color;
+          line-height: 40px;
+          text-align: center;
+          cursor: pointer;
+          &:hover {
+            background-color: #fff;
+          }
+          span {
+            font-size: 16px;
+            a {
+              font-size: 16px;
+              padding: 0px;
+              display: block;
+              cursor: pointer;
+              color: $footer-color;
+              &:hover {
+                border-radius: 0px;
+                background-color: #fff;
+              }
+            }
+          }
+        }
+        .smell-cart-close {
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          cursor: pointer;
+        }
       }
     }
     .rwd-menu {

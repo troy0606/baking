@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./scss/member.scss";
-import { LOG_IN_ACTION, SIGN_UP_ACTION, LOGIN_ACTION } from "./Actions";
+import { SIGN_UP_ACTION, LOGIN_ACTION } from "./Actions";
 import { useDispatch } from "react-redux";
 
 const MemberLogIn_SignUp = () => {

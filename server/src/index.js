@@ -44,15 +44,15 @@ let corsOptions = {
     }
   }
 };
+app.use(cors(corsOptions)); //使用開放網域
 app.use(express.static("public")); //靜態資料夾
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors(corsOptions)); //使用開放網域
 app.use(
   session({
     //上面兩個未來預設可能會變成true先設定好
-    saveUninitialized: false,
-    resave: false,
+    saveUninitialized: true,
+    resave: true,
     secret: "69",
     //存活時間cookie底下才有session
     cookie: { maxAge: 8 * 60 * 60 * 1000 }
@@ -60,30 +60,20 @@ app.use(
 );
 
 // ---------中間層(mid)結束---------
-
+// app.use((req, res, next) => {
+//   if (!req.session.cart) req.session.cart = [];
+//   next();
+// });
 //---------中間層(route)路由---------
-
-app.use((req, res, next) => {
-  //设置跨域访问
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild"
-  );
-  res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
-
-  if (req.method == "OPTIONS") {
-    res.send(200); /*让options请求快速返回*/
-  } else {
-    next();
-  }
-});
 
 const handmadeRoute = require("../routes/handmadeRoute");
 app.use("/handmade", handmadeRoute);
-const product = require("../routes/product");
-app.use("/product", product);
+const productRoute = require("../routes/productRoute");
+app.use("/product", productRoute);
 const memberRoute = require("../routes/memberRoute");
 app.use("/member", memberRoute);
+const cartRoute = require("../routes/cartRoute");
+app.use("/cart", cartRoute);
 
 // ---------中間層結束---------
 

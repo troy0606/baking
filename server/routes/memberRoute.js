@@ -15,12 +15,14 @@ const upload = multer({ dest: "tmp_uploads" }); //設定檔案暫存目錄
 const fs = require("fs"); //讀檔案寫檔案
 bluebird.promisifyAll(db);
 const session = require("express-session"); //session設定
+
 router.use(
   session({
     //上面兩個未來預設可能會變成true先設定好
     saveUninitialized: false,
     resave: false,
     secret: "69",
+
     //存活時間cookie底下才有session
     cookie: { maxAge: 8 * 60 * 60 * 1000 }
   })
@@ -65,12 +67,17 @@ class LogIn {
 //  建構式結束
 
 router.get("/checklogin", (req, res) => {
-  console.log("memberLoginID: " + req.session[0]);
   if (req.session.memberLoginID) {
     db.queryAsync(
       `SELECT * FROM member WHERE member_sid = ${req.session.memberLoginID}`
     ).then(result => {
-      // console.log(result);
+      console.log(result);
+      res.json({
+        status: "202",
+        message: "登入",
+        data: result[0]
+      });
+      // console.log(result)
     });
   } else {
     res.json({

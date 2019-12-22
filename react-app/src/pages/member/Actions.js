@@ -41,10 +41,16 @@ export const SIGN_UP_ACTION = (userName, email, password) => {
 export const LOGIN_ACTION = (email, password) => {
   return dispatch => {
     axios
-      .post("http://localhost:5000/member/login", {
-        email,
-        password
-      },{withCredentials: true})
+      .post(
+        "http://localhost:5000/member/login",
+        {
+          email,
+          password
+        },
+        {
+          withCredentials: true
+        }
+      )
       .then(result => {
         if (result.data.status == 200) {
           dispatch(LOG_IN_ACTION());
