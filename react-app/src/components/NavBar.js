@@ -19,6 +19,7 @@ function NavBar() {
   useEffect(() => {
     dispatch(GetCartData_Post(1));
     console.log(CartData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
@@ -46,8 +47,9 @@ function NavBar() {
                   <Link>
                     <MdPerson />
                   </Link>
-                  {MemberLogState ? (
+                  {MemberLogState.loginStatus ? (
                     <ul className="member-login">
+                      <li>{MemberLogState.memberName}</li>
                       <li>
                         <Link to="/member/">會員專區</Link>
                       </li>

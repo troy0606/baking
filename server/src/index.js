@@ -31,7 +31,7 @@ db.connect(function(err) {
 // ---------模組導入結束---------
 
 // ---------中間層(mid)---------
-const whitelist = ["http://localhost:3000", undefined,"http://localhost:5000/"];
+const whitelist = ["http://localhost:3000", undefined];
 let corsOptions = {
   credentials: true,
   origin: function(origin, callback) {
