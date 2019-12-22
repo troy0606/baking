@@ -19,8 +19,8 @@ const session = require("express-session"); //session設定
 router.use(
   session({
     //上面兩個未來預設可能會變成true先設定好
-    saveUninitialized: true,
-    resave: true,
+    saveUninitialized: false,
+    resave: false,
     secret: "69",
 
     //存活時間cookie底下才有session
@@ -67,15 +67,15 @@ class LogIn {
 //  建構式結束
 
 router.get("/checklogin", (req, res) => {
-  console.log(req.session);
   if (req.session.memberLoginID) {
     db.queryAsync(
       `SELECT * FROM member WHERE member_sid = ${req.session.memberLoginID}`
     ).then(result => {
+      console.log(result);
       res.json({
         status: "202",
         message: "登入",
-        data:result
+        data: result[0]
       });
       // console.log(result)
     });
@@ -103,11 +103,12 @@ router.post("/login", (req, res) => {
     .then(results => {
       if (results.length !== 0) {
         req.session.memberLoginID = results[0].member_sid;
-        req.session.save();
         res.json({
           status: "200",
           message: "會員登入",
-          memberSid: results.insertId
+          memberSid: results[0].member_sid,
+          memberName: results[0].member_name,
+          memberPic: results[0].member_picture
         });
       } else {
         res.json({
