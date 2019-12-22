@@ -106,7 +106,9 @@ router.post("/login", (req, res) => {
         res.json({
           status: "200",
           message: "會員登入",
-          memberSid: results.insertId
+          memberSid: results[0].member_sid,
+          memberName: results[0].member_name,
+          memberPic: results[0].member_picture
         });
       } else {
         res.json({
