@@ -32,7 +32,8 @@ function Products() {
         </div>
         <div className="row">
           <div className=" products-coupon d-flex align-items-center">
-            <div className="products-coupon-detail-1">限時優惠</div>
+            <div className="products-coupon-detail-1">
+              限時優惠</div>
             <div className="products-coupon-detail-2">限時優惠</div>
           </div>
         </div>
