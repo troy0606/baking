@@ -18,6 +18,7 @@ function Cart() {
   console.log(OrderCart);
   const [memberSid, setMemberSid] = useState(1);
   // const [orderCart, setOrderCart] = useState([]);
+  
   const [step, setStep] = useState(0);
   useEffect(() => {
     $("#chekBox-all-input").click(function(e) {
