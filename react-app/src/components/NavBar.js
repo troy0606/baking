@@ -17,10 +17,10 @@ function NavBar() {
   const [cartOpen, setCartOpen] = useState(false);
   let cartTotal = 0;
   useEffect(() => {
-    dispatch(GetCartData_Post(1));
+    dispatch(GetCartData_Post(MemberLogState.memberSid));
     console.log(CartData);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    console.log(MemberLogState);
+  }, [MemberLogState]);
   return (
     <>
       <nav className="container-fulid navbar-container">
@@ -49,7 +49,9 @@ function NavBar() {
                   </Link>
                   {MemberLogState.loginStatus ? (
                     <ul className="member-login">
-                      <li>{MemberLogState.memberName}</li>
+                      <li>
+                        <Link to="/member/">{MemberLogState.memberName}</Link>
+                      </li>
                       <li>
                         <Link to="/member/">會員專區</Link>
                       </li>
@@ -60,11 +62,7 @@ function NavBar() {
                   ) : (
                     <ul className="member-login">
                       <li>
-                        <Link to="/member/signup_Login">
-                          登入
-                          <br />
-                          註冊
-                        </Link>
+                        <Link to="/member/signup_Login">登入&註冊</Link>
                       </li>
                     </ul>
                   )}
@@ -80,7 +78,9 @@ function NavBar() {
                     <ul>
                       {CartData.length == 0 && (
                         <li className="d-flex justify-content-center align-items-center flex-column h-100">
-                          沒有商品
+                          {MemberLogState.loginStatus == true
+                            ? "沒有商品"
+                            : "尚未登入"}
                         </li>
                       )}
                       {CartData.map((v, key) => {
@@ -158,6 +158,11 @@ function NavBar() {
     dispatch(action);
   }
   function clearOrderData() {
+    if (MemberLogState == false) {
+      alert("請先登入");
+      window.location.href = "http://localhost:3000/member/signup_Login";
+      return;
+    }
     window.location.href = "http://localhost:3000/cart/";
   }
 }

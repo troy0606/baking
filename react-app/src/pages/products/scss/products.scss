@@ -26,12 +26,15 @@
     }
     .products-coupon-detail-1,
     .products-coupon-detail-2 {
-      width: 50%;
+      width: 100%;
       height: 250px;
       background-color: #fff;
       @media (max-width: 768px) {
         width: 80%;
         height: 200px;
+      }
+      & span{
+        border: 1px solid #000;
       }
     }
     .products-coupon-detail-1 {

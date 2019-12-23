@@ -10,7 +10,6 @@
   height: 60px;
   z-index: 999;
   ul {
-    height: 60px;
     img {
       cursor: pointer;
     }
@@ -26,17 +25,17 @@
             position: absolute;
             left: 15px;
             top: 55px;
-            width: 75px;
+            white-space: nowrap;
             font-size: 16px;
             background-color: #fff;
-            height: 51.5px;
             li {
-              margin: auto;
+              color: $footer-color;
+              margin: 0;
+              padding: 0;
               cursor: pointer;
-              padding: 5px 5px;
-              &:hover {
-                background-color: $side-color;
-              }
+              // &:hover {
+              //   background-color: $side-color;
+              // }
               &:before {
                 content: "";
                 width: 0;
@@ -51,7 +50,7 @@
                 top: -15px;
               }
               a {
-                padding: 0px;
+                padding: 5px 5px;
                 display: block;
                 color: $footer-color;
                 &:hover {

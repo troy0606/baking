@@ -52,6 +52,7 @@ function App() {
       .catch();
     //eslint-disable-next-line
   }, []);
+  
   return (
     <>
       <Router history={BrowserRouter}>
