@@ -71,13 +71,11 @@ router.get("/checklogin", (req, res) => {
     db.queryAsync(
       `SELECT * FROM member WHERE member_sid = ${req.session.memberLoginID}`
     ).then(result => {
-      console.log(result);
       res.json({
         status: "202",
         message: "登入",
         data: result[0]
       });
-      // console.log(result)
     });
   } else {
     res.json({
@@ -142,17 +140,44 @@ router.post("/register", (req, res) => {
     .then(results => {
       if (results && results.affectedRows == 1) {
         req.session.memberLoginID = results.insertId;
-        req.session.save();
+        return db.queryAsync(
+          `SELECT member_sid,member_name,member_picture FROM member WHERE member_sid = ${results.insertId}`
+        );
+      } else {
         res.json({
-          status: "200",
-          message: "會員註冊成功",
-          memberSid: results.insertId
+          status: "500",
+          message: "伺服器錯誤"
         });
       }
+    })
+    .then(results => {
+      req.session.memberLoginID = results[0].member_sid;
+      res.json({
+        status: "200",
+        message: "會員註冊成功",
+        memberSid: results[0].member_sid,
+        memberName: results[0].member_name,
+        memberPic: results[0].member_picture
+      });
     })
     .catch(error => {
       console.log("error: " + error);
     });
+});
+
+router.post("/logout", (req, res) => {
+  if (req.session.memberLoginID === req.body.memberSid) {
+    delete req.session.memberLoginID;
+    res.json({
+      status: "200",
+      message: "會員登出成功"
+    });
+  } else {
+    res.json({
+      status: "404",
+      message: "會員登出失敗"
+    });
+  }
 });
 
 module.exports = router;
