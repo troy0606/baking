@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./scss/cart.scss";
+import axios from "axios";
 import $ from "jquery";
 import {
   DelCartData_Post,
@@ -10,15 +11,10 @@ import {
 import store from "../../redux/Store";
 import { useSelector, useDispatch } from "react-redux";
 
-
 function Cart() {
   const CartData = useSelector(state => state.CartData);
   const OrderCart = useSelector(state => state.OrderCart);
   const dispatch = useDispatch();
-  console.log(OrderCart);
-  const [memberSid, setMemberSid] = useState(1);
-  // const [orderCart, setOrderCart] = useState([]);
-  
   const [step, setStep] = useState(0);
   useEffect(() => {
     $("#chekBox-all-input").click(function(e) {
@@ -50,15 +46,29 @@ function Cart() {
       allchk();
     });
   });
-  // useEffect(() => {
-  //   console.log(orderCart, "這才是要傳給訂單的");
-  // }, [orderCart]);
-  console.log(CartData, "cartData");
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/member/checklogin", {
+        withCredentials: true
+      })
+      .then(result => {
+        if (result.data.status === "202") {
+          return result.data.data;
+        }
+      })
+      .then(result => {
+        if (!result) {
+          alert("請先登入");
+          window.location.href="http://localhost:3000/home/"
+        }
+      })
+      .catch();
+  }, []);
+
   let option_i = [];
   for (let i = 1; i <= 20; ++i) {
     option_i.push(<option value={i}>{i}個</option>);
   }
-
   return (
     <>
       <div className="cart-container">

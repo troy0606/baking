@@ -5,12 +5,13 @@ import { GetProductData } from "./Actions";
 import store from "../../redux/Store";
 import { FaShoppingCart, FaHeart } from "react-icons/fa";
 import { InsertCartData_Post } from "../cart/Actions";
+import { useSelector, useDispatch } from "react-redux";
 
 function Products() {
+  const MemberLogState = useSelector(state => state.MemberLogState);
   const [storeData, setStoreData] = useState(store.getState());
   const [openShop, setOpenShop] = useState(null);
   const [count, setCount] = useState(1);
-  const [memberSid, setMemberSid] = useState(1);
   let option_i = [];
   for (let i = 1; i <= 20; ++i) {
     option_i.push(<option value={i}>{i}個</option>);
@@ -32,8 +33,7 @@ function Products() {
         </div>
         <div className="row">
           <div className=" products-coupon d-flex align-items-center">
-            <div className="products-coupon-detail-1">
-              限時優惠</div>
+            <div className="products-coupon-detail-1">限時優惠</div>
             <div className="products-coupon-detail-2">限時優惠</div>
           </div>
         </div>
@@ -115,7 +115,11 @@ function Products() {
                             <FaShoppingCart
                               style={{ fontSize: "24px" }}
                               onClick={() =>
-                                cartPost(count, items.product_sid, memberSid)
+                                cartPost(
+                                  count,
+                                  items.product_sid,
+                                  MemberLogState.memberSid
+                                )
                               }
                             />
                           </span>
@@ -140,7 +144,13 @@ function Products() {
     storeChange();
   }
   function cartPost(count, product_sid, memberSid) {
-    store.dispatch(InsertCartData_Post(memberSid, product_sid, count));
+    console.log("aaa");
+    console.log(MemberLogState.loginStatus);
+    if (MemberLogState == false) {
+      alert("請先登入");
+    } else {
+      store.dispatch(InsertCartData_Post(memberSid, product_sid, count));
+    }
   }
 }
 
