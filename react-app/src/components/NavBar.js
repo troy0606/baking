@@ -54,11 +54,12 @@ function NavBar() {
                         setMemberOpen(!memberOpen);
                       }}
                     />
+                    
                   </Link>
                   {MemberLogState.loginStatus ? (
                     <ul
                       className="member-login"
-                      style={memberOpen ? { opacity: "1" } : { opacity: "0" }}
+                      style={memberOpen ? {} : { display: "none" }}
                     >
                       <li>
                         <Link to="/member/">{MemberLogState.memberName}</Link>
@@ -77,7 +78,7 @@ function NavBar() {
                   ) : (
                     <ul
                       className="member-login"
-                      style={memberOpen ? { opacity: "1" } : { opacity: "0" }}
+                      style={memberOpen ? {} : { display: "none" }}
                     >
                       <li>
                         <Link to="/member/signup_Login">登入&註冊</Link>
