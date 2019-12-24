@@ -74,6 +74,8 @@ const memberRoute = require("../routes/memberRoute");
 app.use("/member", memberRoute);
 const cartRoute = require("../routes/cartRoute");
 app.use("/cart", cartRoute);
+const couponRoute = require("../routes/couponRoute");
+app.use("/coupon", couponRoute);
 
 // ---------中間層結束---------
 
