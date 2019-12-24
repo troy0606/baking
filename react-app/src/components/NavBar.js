@@ -10,17 +10,21 @@ import {
   DelCartData_Post,
   InsertOrderData
 } from "../pages/cart/Actions";
+
+import { LOGOUT_ACTION } from "../pages/member/Actions";
 function NavBar() {
   const MemberLogState = useSelector(state => state.MemberLogState);
   const CartData = useSelector(state => state.CartData);
   const dispatch = useDispatch();
   const [cartOpen, setCartOpen] = useState(false);
+  const [memberOpen, setMemberOpen] = useState(false);
   let cartTotal = 0;
   useEffect(() => {
     dispatch(GetCartData_Post(MemberLogState.memberSid));
     console.log(CartData);
     console.log(MemberLogState);
-  }, [MemberLogState]);
+    //eslint-disable-next-line
+  }, []);
   return (
     <>
       <nav className="container-fulid navbar-container">
@@ -45,22 +49,36 @@ function NavBar() {
                 </li>
                 <li className="login-pos">
                   <Link>
-                    <MdPerson />
+                    <MdPerson
+                      onClick={() => {
+                        setMemberOpen(!memberOpen);
+                      }}
+                    />
                   </Link>
                   {MemberLogState.loginStatus ? (
-                    <ul className="member-login">
+                    <ul
+                      className="member-login"
+                      style={memberOpen ? { opacity: "1" } : { opacity: "0" }}
+                    >
                       <li>
                         <Link to="/member/">{MemberLogState.memberName}</Link>
                       </li>
                       <li>
                         <Link to="/member/">會員專區</Link>
                       </li>
-                      <li>
+                      <li
+                        onClick={() =>
+                          dispatch(LOGOUT_ACTION(MemberLogState.memberSid))
+                        }
+                      >
                         <Link to="/home/">登出</Link>
                       </li>
                     </ul>
                   ) : (
-                    <ul className="member-login">
+                    <ul
+                      className="member-login"
+                      style={memberOpen ? { opacity: "1" } : { opacity: "0" }}
+                    >
                       <li>
                         <Link to="/member/signup_Login">登入&註冊</Link>
                       </li>

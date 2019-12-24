@@ -32,12 +32,18 @@ export const SIGN_UP_ACTION = (userName, email, password) => {
       )
       .then(result => {
         if (result.data.status === "200") {
-          dispatch(LOG_IN_ACTION());
+          let memberInfo = {
+            memberSid: result.data.memberSid,
+            memberName: result.data.memberName,
+            memberPic: result.data.memberPic
+          };
+          dispatch(LOG_IN_ACTION(memberInfo));
         }
         return result;
       })
       .then(result => {
         alert(result.data.message);
+        window.history.go(-1);
       })
       .catch(err => {
         console.error(err);
@@ -66,6 +72,35 @@ export const LOGIN_ACTION = (email, password) => {
             memberPic: result.data.memberPic
           };
           dispatch(LOG_IN_ACTION(memberInfo));
+        }
+        return result;
+      })
+      .then(result => {
+        alert(result.data.message);
+        window.history.go(-1);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
+};
+
+export const LOGOUT_ACTION = memberSid => {
+  console.log(memberSid);
+  return dispatch => {
+    axios
+      .post(
+        "http://localhost:5000/member/logout",
+        {
+          memberSid
+        },
+        {
+          withCredentials: true
+        }
+      )
+      .then(result => {
+        if (result.data.status === "200") {
+          dispatch(LOG_OUT_ACTION());
         }
         return result;
       })
