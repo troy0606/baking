@@ -16,6 +16,19 @@ function Cart() {
   const OrderCart = useSelector(state => state.OrderCart);
   const dispatch = useDispatch();
   const [step, setStep] = useState(0);
+  const [total, setTotal] = useState(0);
+  let last_totoal = 0;
+  let count = 0;
+
+  useEffect(() => {
+    console.log("update");
+    console.log(OrderCart);
+    OrderCart.length > 0 &&
+      OrderCart.forEach(element => {
+        count = count + element.product_price * element.product_quantity;
+      });
+    setTotal(count);
+  },[OrderCart]);
   useEffect(() => {
     $("#chekBox-all-input").click(function(e) {
       if (this.checked) {
@@ -59,7 +72,7 @@ function Cart() {
       .then(result => {
         if (!result) {
           alert("請先登入");
-          window.location.href="http://localhost:3000/home/"
+          window.location.href = "http://localhost:3000/home/";
         }
       })
       .catch();
@@ -74,17 +87,20 @@ function Cart() {
       <div className="cart-container">
         <div className="step-icon-items">
           <div className="step1">
-            <div className="icon-item">
+            <div className={`icon-item  ${step == 0 && "step-bgc-color"}`}>
               <div className="icon">1</div>
             </div>
-            <span>確認金額＆數量</span>
+            <span className={step == 0 && "step-color"}>確認金額＆數量</span>
           </div>
-          <div className="step-connector"></div>
+          <div
+            className="step-connector"
+            style={{ border: step == 1 && "1px solid #352c2a" }}
+          ></div>
           <div className="step2">
-            <div className="icon-item">
+            <div className={`icon-item  ${step == 1 && "step-bgc-color"}`}>
               <div className="icon">2</div>
             </div>
-            <span>填寫資料與付款</span>
+            <span className={step == 1 && "step-color"}>填寫資料與付款</span>
           </div>
         </div>
         <input
@@ -170,7 +186,7 @@ function Cart() {
             <ul>
               <li>
                 <span>商品總價</span>
-                <span>元</span>
+                <span>{total}元</span>
               </li>
               <li>
                 <span>目前紅利</span>
@@ -195,7 +211,7 @@ function Cart() {
               <hr />
               <li className="total">
                 <span>結帳總金額</span>
-                <span>500元</span>
+                <span>{last_totoal}元</span>
               </li>
               <li className="count-btn">
                 <input
@@ -203,6 +219,7 @@ function Cart() {
                   value="前往結帳"
                   onClick={() => {
                     console.log(OrderCart);
+                    setStep(1);
                   }}
                 />
               </li>
@@ -253,6 +270,7 @@ function Cart() {
   }
   function cartCheck(sid, e) {
     dispatch(selectOneCart_Post(sid, e, OrderCart));
+    console.log("274");
   }
   ///----
   function allchk() {

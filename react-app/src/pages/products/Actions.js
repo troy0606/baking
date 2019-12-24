@@ -23,3 +23,4 @@ export const GetProductData = postData => {
       .catch(error => console.error("Error:", error));
   };
 };
+

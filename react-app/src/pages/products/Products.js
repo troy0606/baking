@@ -3,8 +3,9 @@ import "./scss/products.scss";
 // import { Link } from "react-router-dom";
 import { GetProductData } from "./Actions";
 import store from "../../redux/Store";
-import { FaShoppingCart, FaHeart } from "react-icons/fa";
+import { FaShoppingCart, FaHeart, FaChessBishop } from "react-icons/fa";
 import { InsertCartData_Post } from "../cart/Actions";
+import { GetCouponData, InsertCouponData } from "../coupon/Actions";
 import { useSelector, useDispatch } from "react-redux";
 
 function Products() {
@@ -12,6 +13,7 @@ function Products() {
   const [storeData, setStoreData] = useState(store.getState());
   const [openShop, setOpenShop] = useState(null);
   const [count, setCount] = useState(1);
+  const [couponData, setCouponData] = useState(null);
   let option_i = [];
   for (let i = 1; i <= 20; ++i) {
     option_i.push(<option value={i}>{i}個</option>);
@@ -23,8 +25,10 @@ function Products() {
   useEffect(() => {
     store.dispatch(GetProductData());
     storeChange();
+    GetCouponData(setCouponData);
   }, []);
-
+  console.log();
+  if (!couponData || !storeData) return "";
   return (
     <>
       <div className="container products-container">
@@ -32,9 +36,35 @@ function Products() {
           <div className="col-12 products-top"></div>
         </div>
         <div className="row">
+          <div className="col-12 product-coupon-title">
+            <p>點擊領取優惠卷</p>
+          </div>
+        </div>
+        <div className="row">
           <div className=" products-coupon d-flex align-items-center">
-            <div className="products-coupon-detail-1">限時優惠</div>
-            <div className="products-coupon-detail-2">限時優惠</div>
+            <div
+              className="products-coupon-detail-1"
+              onClick={() => {
+                couponGet(couponData[0]);
+              }}
+            >
+              {/* <p>點擊領取</p> */}
+              <div className="coupon-content">
+                <p>{couponData ? couponData[0].coupon_detail : ""}</p>
+                <span>{couponData ? couponData[0].coupon_bonus : ""}元</span>
+              </div>
+            </div>
+            <div
+              className="products-coupon-detail-2"
+              onClick={() => {
+                couponGet(couponData[1]);
+              }}
+            >
+              <div className="coupon-content">
+                <p>{couponData ? couponData[1].coupon_detail : ""}</p>
+                <span>{couponData ? couponData[1].coupon_bonus : ""}元</span>
+              </div>
+            </div>
           </div>
         </div>
         <div className="row">
@@ -148,8 +178,17 @@ function Products() {
     console.log(MemberLogState.loginStatus);
     if (MemberLogState == false) {
       alert("請先登入");
+      window.location.href = "http://localhost:3000/member/signup_Login";
     } else {
       store.dispatch(InsertCartData_Post(memberSid, product_sid, count));
+    }
+  }
+  function couponGet(v) {
+    if (MemberLogState == false) {
+      alert("請先登入");
+      window.location.href = "http://localhost:3000/member/signup_Login";
+    } else {
+      InsertCouponData(MemberLogState.memberSid, v.coupon_sid);
     }
   }
 }

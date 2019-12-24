@@ -1,5 +1,6 @@
 @import "../../../commom/commom.scss";
-@import "../../../commom/mixin.scss";
+$step-color: $footer-color;
+
 .cart-container {
   margin: 0 25%;
   @include layout-height-calc(60px, 60px);
@@ -7,6 +8,12 @@
     display: flex;
     justify-content: center;
     padding: 20px;
+    .step-color {
+      color: $step-color !important;
+    }
+    .step-bgc-color {
+      background-color: $step-color !important;
+    }
   }
   .step1 {
     .icon-item {

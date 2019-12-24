@@ -20,9 +20,6 @@ export const DelCartData = key => ({
   key
 });
 
-
-
-
 ///---------
 export const InsertCartData_Post = (
   memberSid,
@@ -73,7 +70,6 @@ export const InsertCartData_Post = (
               return res.json();
             })
             .then(res => {
-              console.log("insert");
               let cart2;
               cart2 = res.data;
               OrderCart.forEach((items, i) => {
@@ -120,7 +116,6 @@ export const GetCartData_Post = member_sid => {
       .catch(error => console.error("Error:", error));
   };
 };
-
 
 export const DelCartData_Post = (member_sid, cart_sid, key) => {
   console.log(member_sid, cart_sid, key);
@@ -169,8 +164,9 @@ export const selectOneCart_Post = (sid, e, OrderCart) => {
         .then(res => {
           console.log("insert");
           if (OrderCart.length > 0) {
-            OrderCart.push(res.data[0]);
-            const action = InsertOrderData(OrderCart);
+            let newCart = OrderCart.slice();
+            newCart.push(res.data[0]);
+            const action = InsertOrderData(newCart);
             dispatch(action);
           }
           if (OrderCart.length == 0) {
