@@ -17,18 +17,20 @@ function Cart() {
   const dispatch = useDispatch();
   const [step, setStep] = useState(0);
   const [total, setTotal] = useState(0);
-  let last_totoal = 0;
+  const [bonus, setBonus] = useState(null);
   let count = 0;
 
   useEffect(() => {
     console.log("update");
+    console.log(CartData);
     console.log(OrderCart);
     OrderCart.length > 0 &&
       OrderCart.forEach(element => {
         count = count + element.product_price * element.product_quantity;
       });
     setTotal(count);
-  },[OrderCart]);
+  }, [OrderCart]);
+
   useEffect(() => {
     $("#chekBox-all-input").click(function(e) {
       if (this.checked) {
@@ -109,7 +111,7 @@ function Cart() {
           id="chekBox-all-input"
           onClick={e => oderHandler(e)}
         />
-        <label htmlFor="chekBox-all-input">選擇全部</label>
+        <label htmlFor="chekBox-all-input">選擇全部</label>
         <div className="cart-shop">
           <div className="cart-shop-left">
             <ul className="cart-items">
@@ -129,9 +131,7 @@ function Cart() {
                         alt=""
                       />
                     </div>
-                    <span className="product-name">
-                      名稱:{item.product_name}
-                    </span>
+                    <span className="product-name">{item.product_name}</span>
                     <div className="select-box">
                       <label htmlFor="">數量：</label>
                       <select
@@ -197,12 +197,14 @@ function Cart() {
                 <input type="text" value="" />
               </li>
               <li>
-                <span>使用優惠卷</span>
+                <span>輸入優惠卷</span>
+                {/* <p className="error-text">請輸入正確號碼</p> */}
+                <p className="success-text">可以使用</p>
                 <input type="text" value="" />
               </li>
               <li>
                 <span>優惠卷折扣</span>
-                <span>折</span>
+                <span>{bonus ? "折抵60元" : "未使用"}</span>
               </li>
               <li>
                 <span>紅利折扣</span>
@@ -211,7 +213,7 @@ function Cart() {
               <hr />
               <li className="total">
                 <span>結帳總金額</span>
-                <span>{last_totoal}元</span>
+                <span>{total}元</span>
               </li>
               <li className="count-btn">
                 <input

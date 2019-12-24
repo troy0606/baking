@@ -144,6 +144,16 @@ $step-color: $footer-color;
           span:nth-child(2) {
             float: right;
           }
+          .error-text {
+            display: inline-block;
+            margin: 0 10px;
+            color: $error-color;
+          }
+          .success-text {
+            display: inline-block;
+            margin: 0 10px;
+            color: $success-color;
+          }
           input {
             float: right;
             width: 100px;

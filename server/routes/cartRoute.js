@@ -53,14 +53,12 @@ class cart_data {
 
 //---------------------------------------
 router.post("/", (req, res) => {
-  console.log(req.body);
-
-  
   let data = new cart_data(
     req.body.member_sid,
     req.body.product_sid,
     req.body.quantity
   );
+  console.log(data.selectCart())
   db.queryAsync(data.selectCart())
     .then(result => {
       let carHandler = null;
@@ -193,3 +191,4 @@ router.post("/delSmallcart", (req, res) => {
 });
 
 module.exports = router;
+

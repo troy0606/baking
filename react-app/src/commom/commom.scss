@@ -3,5 +3,7 @@ $footer-color: #352c2a; //字體顏色和FOOTER顏色
 $header-color: #de726b; //輔色
 $side-color: #eca061; //NAV顏色
 $hover-color: #f5c7b6; //hover上去的顏色
+$success-color: green;
+$error-color: red;
 @import "/mixin.scss";
 @import "/grid.scss";

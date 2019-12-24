@@ -24,7 +24,7 @@ function NavBar() {
     console.log(CartData);
     console.log(MemberLogState);
     //eslint-disable-next-line
-  }, []);
+  }, [MemberLogState]);
   return (
     <>
       <nav className="container-fulid navbar-container">
