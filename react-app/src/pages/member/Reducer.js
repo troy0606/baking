@@ -10,7 +10,12 @@ const MemberLogState = (state = false, action) => {
       return (state = newState);
     }
     case "LOG_OUT": {
-      let newState = false;
+      const newState = {
+        memberSid: null,
+        memberName: "",
+        memberPic: "",
+        loginStatus: false
+      };
       return (state = newState);
     }
     default: {
