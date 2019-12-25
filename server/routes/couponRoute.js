@@ -10,8 +10,10 @@ const db_Obj = {
 const db = mysql.createConnection(db_Obj);
 //---------------------------------------
 class coupon_data {
-  constructor(member_sid, coupon_sid) {
-    (this.member_sid = member_sid), (this.coupon_sid = coupon_sid);
+  constructor(member_sid, coupon_sid, coupon_number) {
+    (this.member_sid = member_sid),
+      (this.coupon_sid = coupon_sid),
+      (this.coupon_number = coupon_number);
   }
   getCouponData() {
     let sql = `SELECT * FROM coupon WHERE 1`;
@@ -24,10 +26,34 @@ class coupon_data {
   selectCouponData() {
     let sql = `  SELECT * FROM member_coupon WHERE member_sid = ${this.member_sid} && coupon_sid = ${this.coupon_sid}
     `;
+  }
+  selectMemberCouponData() {
+    let sql = `SELECT * FROM member_coupon JOIN coupon ON member_coupon.coupon_sid = coupon.coupon_sid WHERE member_coupon.member_sid = ${this.member_sid} && coupon.coupon_number = ${this.coupon_number}
+      `;
     return sql;
   }
 }
 //---------------------------------------
+router.post("/", (req, res) => {
+  let data = new coupon_data();
+  console.log(data.getCouponData());
+  db.query(data.getCouponData(), (error, rows) => {
+    console.log(rows);
+    if (rows) {
+      res.json({
+        status: 202,
+        info: "資料獲取成功",
+        data: rows
+      });
+      return;
+    } else {
+      res.json({
+        status: 404,
+        info: "資料獲取失敗"
+      });
+    }
+  });
+});
 router.post("/insertCoupon", (req, res) => {
   let data = new coupon_data(req.body.member_sid, req.body.coupon_sid);
   console.log(data.insertCouponData());
@@ -50,23 +76,19 @@ router.post("/insertCoupon", (req, res) => {
     }
   });
 });
-router.post("/", (req, res) => {
-  let data = new coupon_data();
-  console.log(data.getCouponData());
-  db.query(data.getCouponData(), (error, rows) => {
-    console.log(rows);
-    if (rows) {
-      res.json({
-        status: 202,
-        info: "資料獲取成功",
-        data: rows
-      });
-      return;
-    } else {
-      res.json({
-        status: 404,
-        info: "資料獲取失敗"
-      });
+router.post("/selectMemberCoupon", (req, res) => {
+  let data = new coupon_data(
+    req.body.member_sid,
+    req.body.coupon_sid,
+    req.body.coupon_number
+  );
+  console.log(data.selectMemberCouponData());
+  db.query(data.selectMemberCouponData(), (error, rows) => {
+    if (rows[0].member_coupon_used == 1) res.json({ info: "已使用" });
+    if (rows[0].member_coupon_used !== 1 && rows) {
+
+    }else{
+      
     }
   });
 });

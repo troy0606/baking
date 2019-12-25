@@ -71,19 +71,22 @@ export const InsertCartData_Post = (
             })
             .then(res => {
               let cart2;
+              let newCart;
               cart2 = res.data;
-              OrderCart.forEach((items, i) => {
+              newCart = OrderCart.slice();
+              newCart.forEach((items, i) => {
                 console.log(items.cart_sid + "1");
                 console.log(cart2[0].cart_sid + "2");
                 if (items.cart_sid == cart2[0].cart_sid) {
                   console.log(OrderCart[i]);
                   console.log(cart2[0]);
-                  OrderCart[i] = cart2[0];
+                  newCart[i] = cart2[0];
                 }
               });
+              console.log(newCart);
               console.log(cart2);
               console.log(cart2[0].cart_sid);
-              const action = InsertOrderData(OrderCart);
+              const action = InsertOrderData(newCart);
               dispatch(action);
               // console.log(orderCart, "這才是要傳給訂單的");
             })
