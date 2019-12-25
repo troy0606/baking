@@ -1,9 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./scss/member.scss";
 import { Link, Route, Switch } from "react-router-dom";
+import MemberInfo from "./MemberInfo";
+import MemberEdit from "./MemberEdit";
+import axios from "axios";
 
 function Home() {
-  useEffect(() => {}, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/member/checklogin", {
+        withCredentials: true
+      })
+      .then(result => {
+        if (result.data.status !== "202") {
+          alert("請先登入");
+          window.history.go(-1);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <div className="container member-container">
@@ -30,8 +49,16 @@ function Home() {
           <div className="col-8 member-main">
             {/* 右側內容 */}
             <Switch>
-              <Route exact path={"/member/info"} component={() => "info"} />
-              <Route exact path={"/member/edit"} component={() => "edit"} />
+              <Route
+                exact
+                path={"/member/info"}
+                component={() => <MemberInfo />}
+              />
+              <Route
+                exact
+                path={"/member/edit"}
+                component={() => <MemberEdit />}
+              />
             </Switch>
           </div>
         </div>

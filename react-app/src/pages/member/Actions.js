@@ -1,6 +1,5 @@
 import { LOG_IN, LOG_OUT, SIGN_UP_PERSON } from "./AcctionType";
 import axios from "axios";
-// axios.defaults.withCredentials = true;
 
 export const LOG_IN_ACTION = memberInfo => ({
   type: LOG_IN,
@@ -43,7 +42,9 @@ export const SIGN_UP_ACTION = (userName, email, password) => {
       })
       .then(result => {
         alert(result.data.message);
-        window.history.go(-1);
+        if (result.data.status === "200") {
+          window.history.go(-1);
+        }
       })
       .catch(err => {
         console.error(err);
@@ -77,7 +78,9 @@ export const LOGIN_ACTION = (email, password) => {
       })
       .then(result => {
         alert(result.data.message);
-        window.history.go(-1);
+        if (result.data.status === "200") {
+          window.history.go(-1);
+        }
       })
       .catch(err => {
         console.error(err);

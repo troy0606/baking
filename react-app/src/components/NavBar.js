@@ -54,7 +54,6 @@ function NavBar() {
                         setMemberOpen(!memberOpen);
                       }}
                     />
-                    
                   </Link>
                   {MemberLogState.loginStatus ? (
                     <ul
