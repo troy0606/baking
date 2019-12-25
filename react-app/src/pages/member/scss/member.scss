@@ -55,12 +55,21 @@
     }
   }
   .member-main {
+    border-radius: 5px;
     width: 100%;
     min-height: 75vh;
-    background-color: #fff;
+    background-color: #f5c7b6bf;
   }
 }
-
+.member_head {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  h3 {
+    font-weight: bold;
+    font-size: 30px;
+  }
+}
 .backGroundImg {
   height: calc(100vh - 60px);
   width: 100vw;
