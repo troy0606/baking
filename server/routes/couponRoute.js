@@ -26,6 +26,7 @@ class coupon_data {
   selectCouponData() {
     let sql = `  SELECT * FROM member_coupon WHERE member_sid = ${this.member_sid} && coupon_sid = ${this.coupon_sid}
     `;
+    return sql;
   }
   selectMemberCouponData() {
     let sql = `SELECT * FROM member_coupon JOIN coupon ON member_coupon.coupon_sid = coupon.coupon_sid WHERE member_coupon.member_sid = ${this.member_sid} && coupon.coupon_number = ${this.coupon_number}
@@ -57,12 +58,11 @@ router.post("/", (req, res) => {
 router.post("/insertCoupon", (req, res) => {
   let data = new coupon_data(req.body.member_sid, req.body.coupon_sid);
   console.log(data.insertCouponData());
-  console.log(data.getCouponData());
   db.query(data.selectCouponData(), (error, rows) => {
-    console.log(rows.length);
+    console.log(rows);
     if (rows.length > 0) {
       res.json({
-        info: "已領取過"
+        info: "已領取"
       });
     } else {
       db.query(data.insertCouponData(), (error, rows) => {
@@ -76,19 +76,32 @@ router.post("/insertCoupon", (req, res) => {
     }
   });
 });
+
 router.post("/selectMemberCoupon", (req, res) => {
   let data = new coupon_data(
     req.body.member_sid,
     req.body.coupon_sid,
     req.body.coupon_number
   );
+  console.log(req.body);
   console.log(data.selectMemberCouponData());
   db.query(data.selectMemberCouponData(), (error, rows) => {
-    if (rows[0].member_coupon_used == 1) res.json({ info: "已使用" });
-    if (rows[0].member_coupon_used !== 1 && rows) {
-
-    }else{
-      
+    console.log(rows);
+    if (rows.length > 0) {
+      if (rows[0].member_coupon_used == 1) res.json({ info: "已使用" });
+      if (rows[0].member_coupon_used == 0 && rows) {
+        console.log(rows[0]);
+        res.json({
+          status: "202",
+          info: "使用優惠眷",
+          data: rows[0]
+        });
+      }
+    } else {
+      res.json({
+        status: "404",
+        info: "查無此優惠卷"
+      });
     }
   });
 });
