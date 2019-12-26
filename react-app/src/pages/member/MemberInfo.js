@@ -39,7 +39,7 @@ function MemberInfo() {
       <div class="container px-4">
         <div class="member_head">
           <h3>會員資訊</h3>
-          {userLevel.map(()=>())}
+          {/* {userLevel.map(()=>())} */}
           <GiRoundStar style={{ color: "#de726b", fontSize: "18px" }} />
         </div>
       </div>
