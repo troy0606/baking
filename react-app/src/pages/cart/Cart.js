@@ -14,11 +14,14 @@ import { useSelector, useDispatch } from "react-redux";
 function Cart() {
   const CartData = useSelector(state => state.CartData);
   const OrderCart = useSelector(state => state.OrderCart);
+  const MemberLogState = useSelector(state => state.MemberLogState);
+
   const dispatch = useDispatch();
   const [step, setStep] = useState(0);
   const [total, setTotal] = useState(0);
   const [bonus, setBonus] = useState(null);
-  let count = 0;
+  let count = total;
+  console.log(bonus);
 
   useEffect(() => {
     console.log("update");
@@ -29,6 +32,7 @@ function Cart() {
         count = count + element.product_price * element.product_quantity;
       });
     setTotal(count);
+    console.log(count);
   }, [OrderCart]);
 
   useEffect(() => {
@@ -200,11 +204,20 @@ function Cart() {
                 <span>輸入優惠卷</span>
                 {/* <p className="error-text">請輸入正確號碼</p> */}
                 <p className="success-text">可以使用</p>
-                <input type="text" value="" />
+                <input
+                  type="text"
+                  name="coupon"
+                  onKeyUp={(e, memberSid) => handler(e, memberSid)}
+                  placeholder="優惠碼"
+                />
               </li>
               <li>
                 <span>優惠卷折扣</span>
-                <span>{bonus ? "折抵60元" : "未使用"}</span>
+                <span>
+                  {bonus
+                    ? bonus.data.coupon_detail + bonus.data.coupon_bonus
+                    : "未使用"}
+                </span>
               </li>
               <li>
                 <span>紅利折扣</span>
@@ -231,6 +244,33 @@ function Cart() {
       </div>
     </>
   );
+
+  async function handler(e, memberSid) {
+    let { value, name } = e.target;
+    if (e.which == 13 && name == "coupon") {
+      fetch("http://localhost:5000/coupon/selectMemberCoupon", {
+        method: "POST",
+        headers: new Headers({
+          "Content-Type": "application/json"
+        }),
+        body: JSON.stringify({
+          member_sid: MemberLogState.memberSid,
+          coupon_sid: "",
+          coupon_number: value
+        })
+      })
+        .then(res => {
+          return res.json();
+        })
+        .then(res => {
+          setBonus(res);
+          // console.log();
+          console.log(count);
+          setTotal(count - res.data.coupon_bonus);
+        });
+    }
+  }
+
   function cartPost(count, product_sid, memberSid, sid) {
     let handler = true;
     dispatch(
@@ -260,6 +300,7 @@ function Cart() {
     const action = InsertOrderData(cart2);
     dispatch(action);
   }
+
   function oderHandler(e) {
     console.log(e.target);
     if (e.target.checked) {

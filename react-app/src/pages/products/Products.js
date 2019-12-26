@@ -173,18 +173,21 @@ function Products() {
     store.dispatch(GetProductData(postData));
     storeChange();
   }
+
   function cartPost(count, product_sid, memberSid) {
     console.log("aaa");
     console.log(MemberLogState.loginStatus);
-    if (MemberLogState == false) {
+    if (MemberLogState.loginStatus == false) {
       alert("請先登入");
       window.location.href = "http://localhost:3000/member/signup_Login";
     } else {
       store.dispatch(InsertCartData_Post(memberSid, product_sid, count));
     }
   }
+
   function couponGet(v) {
-    if (MemberLogState == false) {
+    console.log(MemberLogState);
+    if (MemberLogState.loginStatus == false) {
       alert("請先登入");
       window.location.href = "http://localhost:3000/member/signup_Login";
     } else {
