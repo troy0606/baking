@@ -4,8 +4,13 @@ import { Link, Route, Switch } from "react-router-dom";
 import MemberInfo from "./MemberInfo";
 import MemberEdit from "./MemberEdit";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { UPLOAD_IMG } from "./ActionType";
 
 function Home() {
+  const dispatch = useDispatch();
+  const MemberLogState = useSelector(state => state.MemberLogState);
+  const [memberPic, setMemberPic] = useState(MemberLogState.memberPic);
   useEffect(() => {
     axios
       .get("http://localhost:5000/member/checklogin", {
@@ -23,6 +28,30 @@ function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    setMemberPic(MemberLogState.memberPic);
+  }, [MemberLogState]);
+
+  const clickChangePicBtn = () => {
+    const editFlieButton = document.querySelector("#editPic");
+    editFlieButton.click();
+  };
+
+  const changePic = e => {
+    let file = e.target.files[0];
+    const data = new FormData();
+    data.append("file", file);
+    axios({
+      method: "post",
+      url: "http://localhost:5000/member/upload",
+      data: data,
+      headers: { "Content-Type": "multipart/form-data" },
+      withCredentials: true
+    }).then(result => {
+      alert(result.data.message);
+      dispatch({ type: UPLOAD_IMG, payload: result.data.memberPic });
+    });
+  };
   return (
     <>
       <div className="container member-container">
@@ -31,10 +60,31 @@ function Home() {
             <ul>
               <li className="img-li">
                 <div className="img-box">
-                  <img src="/images/memberBIGHEAD.jpeg " alt="" />
+                  <img
+                    src={
+                      memberPic
+                        ? "http://localhost:5000/img/member/" + memberPic
+                        : ""
+                    }
+                    alt=""
+                  />
                 </div>
                 <div className="img-edit">
-                  <p>編輯</p>
+                  <input
+                    type="file"
+                    style={{ display: "none" }}
+                    id="editPic"
+                    onChange={event => {
+                      changePic(event);
+                    }}
+                  />
+                  <p
+                    onClick={() => {
+                      clickChangePicBtn();
+                    }}
+                  >
+                    編輯
+                  </p>
                 </div>
                 <hr />
               </li>
@@ -51,13 +101,13 @@ function Home() {
             <Switch>
               <Route
                 exact
-                path={"/member/info"}
-                component={() => <MemberInfo />}
+                path={"/member/edit"}
+                component={() => <MemberEdit />}
               />
               <Route
                 exact
-                path={"/member/edit"}
-                component={() => <MemberEdit />}
+                path={"/member/:info?"}
+                component={() => <MemberInfo />}
               />
             </Switch>
           </div>
