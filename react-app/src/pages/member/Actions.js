@@ -1,4 +1,4 @@
-import { LOG_IN, LOG_OUT, SIGN_UP_PERSON } from "./AcctionType";
+import { LOG_IN, LOG_OUT, SIGN_UP_PERSON } from "./ActionType";
 import axios from "axios";
 
 export const LOG_IN_ACTION = memberInfo => ({

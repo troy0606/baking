@@ -29,7 +29,7 @@ router.use(
 );
 
 // 建構式
-class Register {
+class MemberSimpleInfo {
   constructor(userName, email, password) {
     this.userName = userName;
     this.email = email;
@@ -44,13 +44,6 @@ class Register {
   registerSQL() {
     let sql = `INSERT INTO member(member_name, member_email, member_password) VALUES ("${this.userName}", "${this.email}", "${this.password}")`;
     return sql;
-  }
-}
-
-class LogIn {
-  constructor(email, password) {
-    this.email = email;
-    this.password = password;
   }
   logInCheckSQL() {
     let sql = `SELECT COUNT(member_email)
@@ -86,7 +79,7 @@ router.get("/checklogin", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
-  let logIn = new LogIn(req.body.email, req.body.password);
+  let logIn = new MemberSimpleInfo(" ", req.body.email, req.body.password);
   db.queryAsync(logIn.logInCheckSQL())
     .then(results => {
       if (!Object.values(results[0])[0]) {
@@ -121,7 +114,7 @@ router.post("/login", (req, res) => {
 });
 
 router.post("/register", (req, res) => {
-  let register = new Register(
+  let register = new MemberSimpleInfo(
     req.body.userName,
     req.body.email,
     req.body.password
@@ -176,6 +169,47 @@ router.post("/logout", (req, res) => {
     res.json({
       status: "404",
       message: "會員登出失敗"
+    });
+  }
+});
+
+router.post("/upload", upload.single("file"), (req, res) => {
+  //單張圖片上傳
+  if (req.file && req.file.originalname) {
+    switch (req.file.mimetype) {
+      case "image/png":
+      case "image/jpeg":
+      case "image/jpg":
+        fs.createReadStream(req.file.path) //讀檔案
+          .pipe(
+            //串進去
+            fs.createWriteStream("./public/img/member/" + req.file.originalname) //寫檔案
+          );
+        db.query(
+          `UPDATE member SET member_picture = "${req.file.originalname}" WHERE member_sid = ${req.session.memberLoginID}`,
+          function(err, result) {
+            if (result.affectedRows === 0) {
+              res.json({
+                status: "404",
+                message: "圖片上傳失敗(資料庫問題"
+              });
+              throw err;
+            } else {
+              res.json({
+                status: "202",
+                message: "圖片上傳成功",
+                memberPic: req.file.originalname
+              });
+            }
+          }
+        );
+        break;
+      default:
+    }
+  } else {
+    res.json({
+      status: "404",
+      message: "圖片上傳失敗(伺服器問題"
     });
   }
 });
