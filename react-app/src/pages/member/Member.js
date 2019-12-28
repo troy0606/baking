@@ -51,13 +51,13 @@ function Home() {
             <Switch>
               <Route
                 exact
-                path={"/member/info"}
-                component={() => <MemberInfo />}
+                path={"/member/edit"}
+                component={() => <MemberEdit />}
               />
               <Route
                 exact
-                path={"/member/edit"}
-                component={() => <MemberEdit />}
+                path={"/member/:info?"}
+                component={() => <MemberInfo />}
               />
             </Switch>
           </div>
