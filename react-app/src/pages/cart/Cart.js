@@ -27,12 +27,18 @@ function Cart() {
     console.log("update");
     console.log(CartData);
     console.log(OrderCart);
+    count = 0;
     OrderCart.length > 0 &&
       OrderCart.forEach(element => {
         count = count + element.product_price * element.product_quantity;
       });
-    setTotal(count);
+    console.log(typeof bonus);
     console.log(count);
+    if (bonus && count > 0) {
+      console.log(bonus.data.coupon_bonus + 5);
+      count = count - bonus.data.coupon_bonus;
+    }
+    setTotal(count);
   }, [OrderCart]);
 
   useEffect(() => {
@@ -233,8 +239,15 @@ function Cart() {
                   type="button"
                   value="前往結帳"
                   onClick={() => {
+                    console.log(MemberLogState);
                     console.log(OrderCart);
-                    setStep(1);
+                    console.log(bonus);
+                    console.log(total);
+                    if (total <= 0) {
+                      alert("請選擇商品");
+                    } else {
+                      setStep(1);
+                    }
                   }}
                 />
               </li>
@@ -248,6 +261,10 @@ function Cart() {
   async function handler(e, memberSid) {
     let { value, name } = e.target;
     if (e.which == 13 && name == "coupon") {
+      if (total <= 0) {
+        alert("請選擇商品");
+        return;
+      }
       fetch("http://localhost:5000/coupon/selectMemberCoupon", {
         method: "POST",
         headers: new Headers({
@@ -263,10 +280,19 @@ function Cart() {
           return res.json();
         })
         .then(res => {
-          setBonus(res);
-          // console.log();
+          if (res.status == "404") {
+            alert(res.info);
+            return;
+          } else {
+            if (res.data.member_coupon_used == 1) {
+              alert("已被使用");
+            } else {
+              setBonus(res);
+              setTotal(count - res.data.coupon_bonus);
+            }
+          }
+          console.log(res);
           console.log(count);
-          setTotal(count - res.data.coupon_bonus);
         });
     }
   }
