@@ -90,7 +90,24 @@ function MemberInfo() {
         }
       )
       .then(result => {
-        console.log(result);
+        if (result.data.status === "202") {
+          const {
+            userEmail,
+            userName,
+            userBirth,
+            userPhone,
+            userAddress
+          } = result.data.memberData;
+          setUserEmail(userEmail);
+          setUserName(userName);
+          setUserBirth(userBirth);
+          setUserPhone(userPhone);
+          setUserAddress(userAddress);
+          alert(result.data.message);
+          setStep(false);
+        } else {
+          alert(result.data.message);
+        }
       })
       .catch(error => {
         console.log(error);
@@ -104,6 +121,16 @@ function MemberInfo() {
     );
   }
 
+  const dataMaximum = () => {
+    let date = new Date();
+    let y = date.getFullYear();
+    let m = date.getMonth() + 1;
+    m = m < 10 ? "0" + m : m;
+    let d = date.getDate();
+    d = d < 10 ? "0" + d : d;
+    return y + "-" + m + "-" + d;
+  };
+
   return (
     <>
       <div className="container px-4">
@@ -112,6 +139,7 @@ function MemberInfo() {
           <div>{levelArr}</div>
           <div className="d-flex">
             <div
+              style={step ? { width: "160px", cursor: "default" } : {}}
               onClick={
                 !step
                   ? () => {
@@ -133,35 +161,41 @@ function MemberInfo() {
                 </>
               ) : (
                 <>
-                  <div onClick={() => setStep(false)}>
-                    <GoTriangleLeft
-                      style={{
-                        fontSize: "36px",
-                        color: "#eca061",
-                        border: "none"
-                      }}
-                    />
-                    <h5>取消</h5>
-                  </div>
-                  <div
-                    onClick={() =>
-                      submitChange(
-                        userEmail,
-                        userName,
-                        userBirth,
-                        userPhone,
-                        userAddress
-                      )
-                    }
-                  >
-                    <h5>確定</h5>
-                    <GoTriangleRight
-                      style={{
-                        fontSize: "36px",
-                        color: "#eca061",
-                        border: "none"
-                      }}
-                    />
+                  <div className="d-flex w-100 justify-content-between">
+                    <div
+                      className="d-flex align-items-center"
+                      onClick={() => setStep(false)}
+                    >
+                      <GoTriangleLeft
+                        style={{
+                          fontSize: "36px",
+                          color: "#eca061",
+                          border: "none"
+                        }}
+                      />
+                      <h5>取消</h5>
+                    </div>
+                    <div
+                      className="d-flex align-items-center"
+                      onClick={() =>
+                        submitChange(
+                          userEmail,
+                          userName,
+                          userBirth,
+                          userPhone,
+                          userAddress
+                        )
+                      }
+                    >
+                      <h5>確定</h5>
+                      <GoTriangleRight
+                        style={{
+                          fontSize: "36px",
+                          color: "#eca061",
+                          border: "none"
+                        }}
+                      />
+                    </div>
                   </div>
                 </>
               )}
@@ -218,6 +252,7 @@ function MemberInfo() {
                     ? { width: "150px" }
                     : { backgroundColor: "#ccc", width: "150px" }
                 }
+                max={dataMaximum()}
                 disabled={!step}
                 name="userBirth"
                 onChange={
