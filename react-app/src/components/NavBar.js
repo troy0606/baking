@@ -10,8 +10,10 @@ import {
   DelCartData_Post,
   InsertOrderData
 } from "../pages/cart/Actions";
-
 import { LOGOUT_ACTION } from "../pages/member/Actions";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function NavBar() {
   const MemberLogState = useSelector(state => state.MemberLogState);
   const CartData = useSelector(state => state.CartData);
@@ -48,11 +50,34 @@ function NavBar() {
                   <Link to="/teacher/">玩樂烘培</Link>
                 </li>
                 <li className="login-pos">
-                  <Link>
+                  <ToastContainer
+                    autoClose={2000}
+                    position={toast.POSITION.BOTTOM_Right}
+                  />
+                  <Link
+                    style={
+                      MemberLogState.memberPic
+                        ? {
+                            background: `url(http://localhost:5000/img/member/${MemberLogState.memberPic})`,
+                            borderRadius: "50%",
+                            backgroundRepeat: "no-repeat",
+                            width: "100%",
+                            height: "100%"
+                          }
+                        : {}
+                    }
+                  >
                     <MdPerson
                       onClick={() => {
                         setMemberOpen(!memberOpen);
                       }}
+                      style={
+                        MemberLogState.memberPic
+                          ? {
+                              color: `transparent`
+                            }
+                          : {}
+                      }
                     />
                   </Link>
                   {MemberLogState.loginStatus ? (

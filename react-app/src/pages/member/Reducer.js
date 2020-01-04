@@ -19,8 +19,13 @@ const MemberLogState = (state = false, action) => {
       return (state = newState);
     }
     case "UPLOAD_IMG": {
-      const newState = {...state};
+      const newState = { ...state };
       newState.memberPic = action.payload;
+      return (state = newState);
+    }
+    case "EDIT_MEMBER_INFO": {
+      let newState = { ...state };
+      newState.memberName = action.payload;
       return (state = newState);
     }
     default: {

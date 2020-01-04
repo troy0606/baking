@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./scss/member.scss";
 import { SIGN_UP_ACTION, LOGIN_ACTION } from "./Actions";
 import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MemberLogIn_SignUp = () => {
   const [switchSign, setSwitchSign] = useState(false);

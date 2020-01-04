@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import "./scss/member.scss";
-import { Link, Route, Switch } from "react-router-dom";
 import axios from "axios";
 import { GiRoundStar } from "react-icons/gi";
 import { GoTriangleRight, GoTriangleLeft } from "react-icons/go";
+import { EDIT_MEMBER_INFO_ACTION } from "./Actions";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function MemberInfo() {
+  const dispatch = useDispatch();
   const [step, setStep] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const [userName, setUserName] = useState("");
@@ -27,10 +31,9 @@ function MemberInfo() {
           setUserAddress(result.data.data.member_address);
           setUserLevel(result.data.data.member_level);
           if (result.data.status === "202") {
-            console.log(userName);
           } else {
-            alert(result.data.message);
-            window.history.go(-1);
+            toast.warn("請先登入");
+            setTimeout(() => window.history.go(-1), 3000);
           }
         })
         .catch(error => {
@@ -98,15 +101,21 @@ function MemberInfo() {
             userPhone,
             userAddress
           } = result.data.memberData;
-          setUserEmail(userEmail);
-          setUserName(userName);
-          setUserBirth(userBirth);
-          setUserPhone(userPhone);
-          setUserAddress(userAddress);
-          alert(result.data.message);
-          setStep(false);
+          toast(result.data.message);
+          setTimeout(() => {
+            setUserEmail(userEmail);
+            setUserName(userName);
+            setUserBirth(userBirth);
+            setUserPhone(userPhone);
+            setUserAddress(userAddress);
+            alert(result.data.message);
+            setStep(false);
+            dispatch(EDIT_MEMBER_INFO_ACTION(userName));
+          }, 3000);
+        } else if (result.data.status === "200") {
+          toast.info(result.data.message);
         } else {
-          alert(result.data.message);
+          toast.error(result.data.message);
         }
       })
       .catch(error => {
@@ -207,7 +216,7 @@ function MemberInfo() {
             <li>
               <h5>會員信箱</h5>
               <input
-                type="text"
+                type="email"
                 placeholder={userEmail}
                 style={step ? {} : { backgroundColor: "#ccc" }}
                 disabled={!step}
