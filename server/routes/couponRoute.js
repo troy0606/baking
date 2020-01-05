@@ -34,6 +34,28 @@ class coupon_data {
     return sql;
   }
 }
+class bonus {
+  constructor(member_sid) {
+    this.member_sid = member_sid;
+  }
+  getMemberBonus() {
+    let sql = `SELECT member_bonus FROM member WHERE member_sid = ${this.member_sid}`;
+    return sql;
+  }
+}
+//---------------------------------------
+router.post("/bonus", (req, res) => {
+  let data = new bonus(req.session.memberLoginID);
+  console.log(req.session);
+  console.log(data.getMemberBonus());
+  db.query(data.getMemberBonus(), (err, rows) => {
+    if (rows) {
+      res.json({
+        rows
+      });
+    }
+  });
+});
 //---------------------------------------
 router.post("/", (req, res) => {
   let data = new coupon_data();

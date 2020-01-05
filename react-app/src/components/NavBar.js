@@ -58,11 +58,14 @@ function NavBar() {
                     style={
                       MemberLogState.memberPic
                         ? {
-                            background: `url(http://localhost:5000/img/member/${MemberLogState.memberPic})`,
+                            backgroundImage: `url(http://localhost:5000/img/member/${MemberLogState.memberPic})`,
                             borderRadius: "50%",
                             backgroundRepeat: "no-repeat",
                             width: "100%",
-                            height: "100%"
+                            height: "100%",
+                            backgroundSize: "cover",
+                            backgroundPositionX: "50%",
+                            backgroundPositionY: "50%"
                           }
                         : {}
                     }
