@@ -269,4 +269,36 @@ router.post("/changeInfo", (req, res) => {
   });
 });
 
+router.post("/changePassword", (req, res) => {
+  let { userOldPassword, userNewPassword } = req.body;
+  db.queryAsync(
+    `SELECT * FROM member Where member_sid = ${req.session.memberLoginID}`
+  ).then(results => {
+    const member_password = results[0].member_password;
+    if (member_password !== userOldPassword) {
+      res.json({ status: "400", message: "舊密碼不符" });
+    } else if (member_password === userNewPassword) {
+      res.json({ status: "400", message: "密碼沒有修改" });
+    } else {
+      return db.query(
+        `UPDATE member SET member_password = "${userNewPassword}" WHERE member_sid = ${req.session.memberLoginID}`,
+        (err, result) => {
+          if (result && result.affectedRows === 0) {
+            res.json({
+              status: "404",
+              message: "密碼修改失敗(資料庫問題"
+            });
+            throw err;
+          } else {
+            res.json({
+              status: "202",
+              message: "密碼修改成功"
+            });
+          }
+        }
+      );
+    }
+  });
+});
+
 module.exports = router;
