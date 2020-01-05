@@ -91,8 +91,18 @@
       &:hover path {
         color: #de726b;
       }
-      > div   {
-        flex-frow: 1;
+      > div {
+        flex-grow: 1;
+        > div {
+          cursor: pointer;
+          font-weight: bold;
+          path {
+            color: rgb(236, 160, 97);
+          }
+          &:hover path {
+            color: #de726b;
+          }
+        }
       }
     }
   }

@@ -1,5 +1,12 @@
-import { LOG_IN, LOG_OUT, SIGN_UP_PERSON } from "./ActionType";
+import {
+  LOG_IN,
+  LOG_OUT,
+  SIGN_UP_PERSON,
+  EDIT_MEMBER_INFO
+} from "./ActionType";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const LOG_IN_ACTION = memberInfo => ({
   type: LOG_IN,
@@ -13,6 +20,11 @@ export const LOG_OUT_ACTION = () => ({
 export const SIGN_UP_PERSON_ACTION = message => ({
   type: SIGN_UP_PERSON,
   payload: message
+});
+
+export const EDIT_MEMBER_INFO_ACTION = userName => ({
+  type: EDIT_MEMBER_INFO,
+  payload: userName
 });
 
 export const SIGN_UP_ACTION = (userName, email, password) => {
@@ -41,9 +53,11 @@ export const SIGN_UP_ACTION = (userName, email, password) => {
         return result;
       })
       .then(result => {
-        alert(result.data.message);
         if (result.data.status === "200") {
-          window.history.go(-1);
+          toast(result.data.message);
+          setTimeout(() => window.history.go(-1), 3000);
+        } else {
+          toast.error(result.data.message);
         }
       })
       .catch(err => {
@@ -77,9 +91,11 @@ export const LOGIN_ACTION = (email, password) => {
         return result;
       })
       .then(result => {
-        alert(result.data.message);
         if (result.data.status === "200") {
-          window.history.go(-1);
+          toast(result.data.message);
+          setTimeout(() => window.history.go(-1), 3000);
+        } else {
+          toast.error(result.data.message);
         }
       })
       .catch(err => {
@@ -89,7 +105,6 @@ export const LOGIN_ACTION = (email, password) => {
 };
 
 export const LOGOUT_ACTION = memberSid => {
-  console.log(memberSid);
   return dispatch => {
     axios
       .post(
@@ -108,7 +123,12 @@ export const LOGOUT_ACTION = memberSid => {
         return result;
       })
       .then(result => {
-        alert(result.data.message);
+        if (result.data.status === "200") {
+          toast(result.data.message);
+          setTimeout(() => window.history.go(-1), 3000);
+        } else {
+          toast.error(result.data.message);
+        }
       })
       .catch(err => {
         console.error(err);

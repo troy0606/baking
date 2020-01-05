@@ -6,6 +6,8 @@ import MemberEdit from "./MemberEdit";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { UPLOAD_IMG } from "./ActionType";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Home() {
   const dispatch = useDispatch();
@@ -18,8 +20,11 @@ function Home() {
       })
       .then(result => {
         if (result.data.status !== "202") {
-          alert("請先登入");
-          window.history.go(-1);
+          toast.warn("請先登入");
+          setTimeout(
+            () => window.location.replace("http://localhost:3000/home"),
+            3000
+          );
         }
       })
       .catch(error => {
@@ -48,8 +53,15 @@ function Home() {
       headers: { "Content-Type": "multipart/form-data" },
       withCredentials: true
     }).then(result => {
-      alert(result.data.message);
-      dispatch({ type: UPLOAD_IMG, payload: result.data.memberPic });
+      if (result.data.status === "202") {
+        toast(result.data.message);
+        setTimeout(
+          () => dispatch({ type: UPLOAD_IMG, payload: result.data.memberPic }),
+          3000
+        );
+      } else {
+        toast.warn(result.data.message);
+      }
     });
   };
   return (

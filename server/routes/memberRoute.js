@@ -15,6 +15,7 @@ const upload = multer({ dest: "tmp_uploads" }); //設定檔案暫存目錄
 const fs = require("fs"); //讀檔案寫檔案
 bluebird.promisifyAll(db);
 const session = require("express-session"); //session設定
+const moment = require("moment-timezone"); //解析時間格式
 
 router.use(
   session({
@@ -64,6 +65,9 @@ router.get("/checklogin", (req, res) => {
     db.queryAsync(
       `SELECT * FROM member WHERE member_sid = ${req.session.memberLoginID}`
     ).then(result => {
+      result[0].member_birth = moment(result[0].member_birth)
+        .tz("Asia/Taipei")
+        .format("YYYY-MM-DD");
       res.json({
         status: "202",
         message: "登入",
@@ -212,6 +216,57 @@ router.post("/upload", upload.single("file"), (req, res) => {
       message: "圖片上傳失敗(伺服器問題"
     });
   }
+});
+
+router.post("/changeInfo", (req, res) => {
+  let { userEmail, userName, userBirth, userPhone, userAddress } = req.body;
+  db.queryAsync(
+    `SELECT * FROM member Where member_sid = ${req.session.memberLoginID}`
+  ).then(results => {
+    let {
+      member_email,
+      member_name,
+      member_birth,
+      member_phone,
+      member_address
+    } = results[0];
+    member_birth = moment(member_birth)
+      .tz("Asia/Taipei")
+      .format("YYYY-MM-DD");
+    if (
+      member_email === userEmail &&
+      member_name === userName &&
+      member_birth === userBirth &&
+      member_phone === userPhone &&
+      member_address === userAddress
+    ) {
+      res.json({ status: "200", message: "資料沒有修改" });
+    } else {
+      return db.query(
+        `UPDATE member SET member_email = "${userEmail}" ,
+        member_name = "${userName}" ,
+        member_birth = "${userBirth}" ,
+        member_phone = "${userPhone}" ,
+        member_address = "${userAddress}" 
+        WHERE member_sid = ${req.session.memberLoginID}`,
+        (err, result) => {
+          if (result && result.affectedRows === 0) {
+            res.json({
+              status: "404",
+              message: "資料修改失敗(資料庫問題"
+            });
+            throw err;
+          } else {
+            res.json({
+              status: "202",
+              message: "資料修改成功",
+              memberData: req.body
+            });
+          }
+        }
+      );
+    }
+  });
 });
 
 module.exports = router;
