@@ -107,8 +107,10 @@ html {
   color: #352c2a;
   font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif, "宋体" !important;
 }
-*{
-  list-style: none !important; 
+* {
+  list-style: none !important;
   text-decoration: none !important;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
