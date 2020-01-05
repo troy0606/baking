@@ -10,6 +10,10 @@
   height: 60px;
   z-index: 999;
   ul {
+    @media screen and (max-width: 768px) {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
     img {
       cursor: pointer;
     }

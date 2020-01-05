@@ -21,6 +21,7 @@ function Cart() {
   const [total, setTotal] = useState(0);
   const [total2, setTotal2] = useState(0);
   const [bonus, setBonus] = useState(null);
+  const [numberBonus, setnumberBonus] = useState(0);
   let count = total;
 
   useEffect(() => {
@@ -92,6 +93,34 @@ function Cart() {
         }
       })
       .catch();
+  }, []);
+  useEffect(() => {
+    console.log("1");
+    // axios("http://localhost:5000/coupon/bonus", {
+    //   method: "post",
+
+    //   headers: { "Content-Type": "multipart/form-data" },
+    //   withCredentials: true
+    // }).then(res => {
+    //   setnumberBonus(res.data.rows[0].member_bonus);
+    // });
+    fetch("http://localhost:5000/coupon/bonus", {
+      method: "POST",
+      credentials: "include",
+      headers: new Headers({
+        "Content-Type": "application/x-www-form-urlencoded"
+      })
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then(res => {
+        console.log(res.rows[0].member_bonus);
+        setnumberBonus(res.rows[0].member_bonus);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }, []);
 
   let option_i = [];
@@ -204,11 +233,7 @@ function Cart() {
               </li>
               <li>
                 <span>目前紅利</span>
-                <span>300點</span>
-              </li>
-              <li>
-                <span>欲使用紅利</span>
-                <input type="text" value="" />
+                <span>{numberBonus}點</span>
               </li>
               <li>
                 <span>輸入優惠卷</span>
