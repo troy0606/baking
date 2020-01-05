@@ -19,11 +19,12 @@ function Cart() {
   const dispatch = useDispatch();
   const [step, setStep] = useState(0);
   const [total, setTotal] = useState(0);
+  const [total2, setTotal2] = useState(0);
   const [bonus, setBonus] = useState(null);
   let count = total;
-  console.log(bonus);
 
   useEffect(() => {
+    let total2 = 0;
     console.log("update");
     console.log(CartData);
     console.log(OrderCart);
@@ -31,16 +32,19 @@ function Cart() {
     OrderCart.length > 0 &&
       OrderCart.forEach(element => {
         count = count + element.product_price * element.product_quantity;
+        total2 = total2 + element.product_price * element.product_quantity;
       });
     console.log(typeof bonus);
     console.log(count);
+
     if (bonus && count > 0) {
       console.log(bonus.data.coupon_bonus + 5);
       count = count - bonus.data.coupon_bonus;
     }
+    console.log(count);
     setTotal(count);
+    setTotal2(total2);
   }, [OrderCart]);
-
   useEffect(() => {
     $("#chekBox-all-input").click(function(e) {
       if (this.checked) {
@@ -209,7 +213,7 @@ function Cart() {
               <li>
                 <span>輸入優惠卷</span>
                 {/* <p className="error-text">請輸入正確號碼</p> */}
-                <p className="success-text">可以使用</p>
+                {/* <p className="success-text">可以使用</p> */}
                 <input
                   type="text"
                   name="coupon"
@@ -287,12 +291,21 @@ function Cart() {
             if (res.data.member_coupon_used == 1) {
               alert("已被使用");
             } else {
+              let couponCount = count;
               setBonus(res);
-              setTotal(count - res.data.coupon_bonus);
+              console.log(Number.isInteger(res.data.coupon_bonus));
+              couponCount = total2;
+              console.log(res.data.coupon_bonus);
+              if (Number.isInteger(res.data.coupon_bonus)) {
+                couponCount = total2 - res.data.coupon_bonus;
+              } else {
+                couponCount = total2 * res.data.coupon_bonus;
+              }
+              setTotal(couponCount);
+              console.log(couponCount + "295");
             }
           }
-          console.log(res);
-          console.log(count);
+          console.log(count + "298");
         });
     }
   }

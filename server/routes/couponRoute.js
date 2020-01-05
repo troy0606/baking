@@ -86,7 +86,7 @@ router.post("/selectMemberCoupon", (req, res) => {
   console.log(req.body);
   console.log(data.selectMemberCouponData());
   db.query(data.selectMemberCouponData(), (error, rows) => {
-    console.log(rows);
+    console.log(rows.length);
     if (rows.length > 0) {
       if (rows[0].member_coupon_used == 1) res.json({ info: "已使用" });
       if (rows[0].member_coupon_used == 0 && rows) {
