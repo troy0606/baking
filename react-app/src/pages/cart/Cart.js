@@ -247,6 +247,14 @@ function Cart() {
                 />
               </li>
               <li>
+                <span>輸入使用紅利</span>
+                <input
+                  type="number"
+                  name="coupon"
+                  placeholder="紅利"
+                />
+              </li>
+              <li>
                 <span>優惠卷折扣</span>
                 <span>
                   {bonus
