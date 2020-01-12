@@ -43,12 +43,12 @@ function NavBar() {
                 <li>
                   <Link to="/products/">享烘滋味</Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link to="/forum/">享烘論壇</Link>
                 </li>
                 <li>
                   <Link to="/teacher/">玩樂烘培</Link>
-                </li>
+                </li> */}
                 <li className="login-pos">
                   <ToastContainer
                     autoClose={2000}

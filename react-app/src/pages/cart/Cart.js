@@ -15,13 +15,13 @@ function Cart() {
   const CartData = useSelector(state => state.CartData);
   const OrderCart = useSelector(state => state.OrderCart);
   const MemberLogState = useSelector(state => state.MemberLogState);
-
   const dispatch = useDispatch();
   const [step, setStep] = useState(0);
   const [total, setTotal] = useState(0);
   const [total2, setTotal2] = useState(0);
   const [bonus, setBonus] = useState(null);
   const [numberBonus, setnumberBonus] = useState(0);
+  const [useBons, setuseBonus] = useState(0);
   let count = total;
 
   useEffect(() => {
@@ -127,174 +127,231 @@ function Cart() {
   for (let i = 1; i <= 20; ++i) {
     option_i.push(<option value={i}>{i}個</option>);
   }
-  return (
-    <>
-      <div className="cart-container">
-        <div className="step-icon-items">
-          <div className="step1">
-            <div className={`icon-item  ${step == 0 && "step-bgc-color"}`}>
-              <div className="icon">1</div>
+  if (step == 0) {
+    return (
+      <>
+        <div className="cart-container">
+          <div className="step-icon-items">
+            <div className="step1">
+              <div className={`icon-item  ${step == 0 && "step-bgc-color"}`}>
+                <div className="icon">1</div>
+              </div>
+              <span className={step == 0 && "step-color"}>確認金額＆數量</span>
             </div>
-            <span className={step == 0 && "step-color"}>確認金額＆數量</span>
-          </div>
-          <div
-            className="step-connector"
-            style={{ border: step == 1 && "1px solid #352c2a" }}
-          ></div>
-          <div className="step2">
-            <div className={`icon-item  ${step == 1 && "step-bgc-color"}`}>
-              <div className="icon">2</div>
+            <div
+              className="step-connector"
+              style={{ border: step == 1 && "1px solid #352c2a" }}
+            ></div>
+            <div className="step2">
+              <div className={`icon-item  ${step == 1 && "step-bgc-color"}`}>
+                <div className="icon">2</div>
+              </div>
+              <span className={step == 1 && "step-color"}>填寫資料與付款</span>
             </div>
-            <span className={step == 1 && "step-color"}>填寫資料與付款</span>
           </div>
-        </div>
-        <input
-          type="checkbox"
-          className="checkBox-all-input"
-          id="chekBox-all-input"
-          onClick={e => oderHandler(e)}
-        />
-        <label htmlFor="chekBox-all-input">選擇全部</label>
-        <div className="cart-shop">
-          <div className="cart-shop-left">
-            <ul className="cart-items">
-              {CartData.map((item, key) => {
-                return (
-                  <li className="cart-item">
-                    <input
-                      type="checkbox"
-                      className="check-box-product"
-                      onClick={e => {
-                        cartCheck(item.cart_sid, e);
-                      }}
-                    />
-                    <div className="img-box">
-                      <img
-                        src={`/images/products/${item.product_img_1}`}
-                        alt=""
+          <input
+            type="checkbox"
+            className="checkBox-all-input"
+            id="chekBox-all-input"
+            onClick={e => oderHandler(e)}
+          />
+          <label htmlFor="chekBox-all-input">選擇全部</label>
+          <div className="cart-shop">
+            <div className="cart-shop-left">
+              <ul className="cart-items">
+                {CartData.map((item, key) => {
+                  return (
+                    <li className="cart-item">
+                      <input
+                        type="checkbox"
+                        className="check-box-product"
+                        onClick={e => {
+                          cartCheck(item.cart_sid, e);
+                        }}
                       />
-                    </div>
-                    <span className="product-name">{item.product_name}</span>
-                    <div className="select-box">
-                      <label htmlFor="">數量：</label>
-                      <select
-                        name=""
-                        id="select-product-number"
-                        onChange={e => {
-                          console.log(e.target.value);
-                          console.log(item.product_sid);
-                          cartPost(
-                            e.target.value,
-                            item.product_sid,
-                            item.member_sid,
-                            item.cart_sid
-                          );
+                      <div className="img-box">
+                        <img
+                          src={`/images/products/${item.product_img_1}`}
+                          alt=""
+                        />
+                      </div>
+                      <span className="product-name">{item.product_name}</span>
+                      <div className="select-box">
+                        <label htmlFor="">數量：</label>
+                        <select
+                          name=""
+                          id="select-product-number"
+                          onChange={e => {
+                            console.log(e.target.value);
+                            console.log(item.product_sid);
+                            cartPost(
+                              e.target.value,
+                              item.product_sid,
+                              item.member_sid,
+                              item.cart_sid
+                            );
+                          }}
+                        >
+                          {option_i.map((op_item, op_key) => {
+                            return (
+                              <>
+                                <option
+                                  value={`${op_key + 1}`}
+                                  selected={
+                                    item.product_quantity == op_key + 1
+                                      ? true
+                                      : false
+                                  }
+                                >
+                                  {op_key + 1}
+                                </option>
+                              </>
+                            );
+                          })}
+                        </select>
+                      </div>
+                      <span>
+                        {item.product_price * item.product_quantity}元
+                      </span>
+                      <div
+                        className="del-cart-item"
+                        onClick={() => {
+                          console.log(key);
+                          delCartData(item, key);
                         }}
                       >
-                        {option_i.map((op_item, op_key) => {
-                          return (
-                            <>
-                              <option
-                                value={`${op_key + 1}`}
-                                selected={
-                                  item.product_quantity == op_key + 1
-                                    ? true
-                                    : false
-                                }
-                              >
-                                {op_key + 1}
-                              </option>
-                            </>
-                          );
-                        })}
-                      </select>
-                    </div>
-                    <span>{item.product_price * item.product_quantity}元</span>
-                    <div
-                      className="del-cart-item"
-                      onClick={() => {
-                        console.log(key);
-                        delCartData(item, key);
-                      }}
-                    >
-                      x
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-          <div className="cart-shop-right">
-            <h2>訂單摘要</h2>
-            <ul>
-              <li>
-                <span>商品總價</span>
-                <span>{total}元</span>
-              </li>
-              <li>
-                <span>目前紅利</span>
-                <span>{numberBonus}點</span>
-              </li>
-              <li>
-                <span>輸入優惠卷</span>
-                {/* <p className="error-text">請輸入正確號碼</p> */}
-                {/* <p className="success-text">可以使用</p> */}
-                <input
-                  type="text"
-                  name="coupon"
-                  onKeyUp={(e, memberSid) => handler(e, memberSid)}
-                  placeholder="優惠碼"
-                />
-              </li>
-              <li>
-                <span>輸入使用紅利</span>
-                <input
-                  type="number"
-                  name="coupon"
-                  placeholder="紅利"
-                />
-              </li>
-              <li>
-                <span>優惠卷折扣</span>
-                <span>
-                  {bonus
-                    ? bonus.data.coupon_detail + bonus.data.coupon_bonus
-                    : "未使用"}
-                </span>
-              </li>
-              <li>
-                <span>紅利折扣</span>
-                <span>點</span>
-              </li>
-              <hr />
-              <li className="total">
-                <span>結帳總金額</span>
-                <span>{total}元</span>
-              </li>
-              <li className="count-btn">
-                <input
-                  type="button"
-                  value="前往結帳"
-                  onClick={() => {
-                    console.log(MemberLogState);
-                    console.log(OrderCart);
-                    console.log(bonus);
-                    console.log(total);
-                    if (total <= 0) {
-                      alert("請選擇商品");
-                    } else {
-                      setStep(1);
-                    }
-                  }}
-                />
-              </li>
-            </ul>
+                        x
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+            <div className="cart-shop-right">
+              <h2>訂單摘要</h2>
+              <ul>
+                <li>
+                  <span>商品總價</span>
+                  <span>{total}元</span>
+                </li>
+                <li>
+                  <span>目前紅利</span>
+                  <span>{numberBonus}點</span>
+                </li>
+                <li>
+                  <span>輸入優惠卷</span>
+                  {/* <p className="error-text">請輸入正確號碼</p> */}
+                  {/* <p className="success-text">可以使用</p> */}
+                  <input
+                    type="text"
+                    name="coupon"
+                    onKeyUp={(e, memberSid) => handler(e, memberSid)}
+                    placeholder="優惠碼"
+                  />
+                </li>
+                <li>
+                  <span>輸入使用紅利</span>
+                  <input
+                    type="text"
+                    name="coupon"
+                    placeholder="紅利"
+                    onChange={e => {
+                      bonusHandler(e);
+                    }}
+                  />
+                </li>
+                <li>
+                  <span>優惠卷折扣</span>
+                  <span>
+                    {bonus
+                      ? bonus.data.coupon_detail + bonus.data.coupon_bonus
+                      : "未使用"}
+                  </span>
+                </li>
+                <li>
+                  <span>紅利折扣</span>
+                  <span>{useBons}點</span>
+                </li>
+                <hr />
+                <li className="total">
+                  <span>結帳總金額</span>
+                  <span>{total}元</span>
+                </li>
+                <li className="count-btn">
+                  <input
+                    type="button"
+                    value="前往結帳"
+                    onClick={() => {
+                      console.log(MemberLogState);
+                      console.log(OrderCart);
+                      console.log(bonus);
+                      console.log(useBons);
+                      console.log(total);
+                      if (total <= 0) {
+                        alert("請選擇商品");
+                      } else {
+                        setStep(1);
+                      }
+                    }}
+                  />
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  } else {
+    return (
+      <>
+        <div className="cart-container">
+          <div className="step-icon-items">
+            <div className="step1">
+              <div className={`icon-item  ${step == 0 && "step-bgc-color"}`}>
+                <div className="icon">1</div>
+              </div>
+              <span className={step == 0 && "step-color"}>確認金額＆數量</span>
+            </div>
+            <div
+              className="step-connector"
+              style={{ border: step == 1 && "1px solid #352c2a" }}
+            ></div>
+            <div className="step2">
+              <div className={`icon-item  ${step == 1 && "step-bgc-color"}`}>
+                <div className="icon">2</div>
+              </div>
+              <span className={step == 1 && "step-color"}>填寫資料與付款</span>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
 
+  function bonusHandler(e) {
+    console.log(e.target.value);
+    if (parseInt(e.target.value) >= total) {
+      alert("紅利不得超過商品總額");
+      setuseBonus(0);
+      e.target.value = null;
+      return;
+    }
+    if (
+      /^\d+$/.test(e.target.value) == true &&
+      parseInt(e.target.value) <= numberBonus
+    ) {
+      console.log(typeof e.target.value);
+      console.log(typeof numberBonus);
+      setuseBonus(e.target.value);
+      setTotal(total2 - e.target.value);
+    } else {
+      setuseBonus(0);
+      setTotal(total2);
+      e.target.value = null;
+      alert("請輸入正確數字");
+    }
+  }
+  //---------------------------
   async function handler(e, memberSid) {
     let { value, name } = e.target;
     if (e.which == 13 && name == "coupon") {

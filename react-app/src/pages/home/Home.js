@@ -40,7 +40,7 @@ function Home() {
             </div>
           </div>
         </div>
-        <div className="container-fulid home-product" id="product">
+        {/* <div className="container-fulid home-product" id="product">
           <div className="container">
             <div className="Today-products">
               <h3>本日推薦</h3>
@@ -60,7 +60,7 @@ function Home() {
               </ul>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
