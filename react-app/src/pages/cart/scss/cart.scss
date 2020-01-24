@@ -1,180 +1,245 @@
-@import "../../../commom/commom.scss";
+@import '../../../commom/commom.scss';
 $step-color: $footer-color;
 
 .cart-container {
-  margin: 0 25%;
-  @include layout-height-calc(60px, 60px);
-  .step-icon-items {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    .step-color {
-      color: $step-color !important;
+    margin: 0 25%;
+    @include layout-height-calc(60px, 60px);
+    .step-icon-items {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+        .step-color {
+            color: $step-color !important;
+        }
+        .step-bgc-color {
+            background-color: $step-color !important;
+        }
     }
-    .step-bgc-color {
-      background-color: $step-color !important;
+    .step1 {
+        .icon-item {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: #989899;
+            vertical-align: middle;
+            border-radius: 100%;
+            margin: 0 5px;
+            .icon {
+                color: #fff;
+                text-align: center;
+                line-height: 30px;
+            }
+        }
+        span {
+            vertical-align: middle;
+            color: #989899;
+        }
     }
-  }
-  .step1 {
-    .icon-item {
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      background-color: #989899;
-      vertical-align: middle;
-      border-radius: 100%;
-      margin: 0 5px;
-      .icon {
-        color: #fff;
-        text-align: center;
-        line-height: 30px;
-      }
-    }
-    span {
-      vertical-align: middle;
-      color: #989899;
-    }
-  }
 
-  .step2 {
-    .icon-item {
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      background-color: #989899;
-      vertical-align: middle;
-      border-radius: 100%;
-      margin: 0 5px;
-      .icon {
-        color: #fff;
-        text-align: center;
-        line-height: 30px;
-      }
+    .step2 {
+        .icon-item {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: #989899;
+            vertical-align: middle;
+            border-radius: 100%;
+            margin: 0 5px;
+            .icon {
+                color: #fff;
+                text-align: center;
+                line-height: 30px;
+            }
+        }
+        span {
+            vertical-align: middle;
+            color: #989899;
+        }
     }
-    span {
-      vertical-align: middle;
-      color: #989899;
+
+    .step-connector {
+        border: 1px solid #989899;
+        height: 1px;
+        width: 30%;
+        margin: auto 5px;
     }
-  }
 
-  .step-connector {
-    border: 1px solid #989899;
-    height: 1px;
-    width: 30%;
-    margin: auto 5px;
-  }
+    margin-bottom: 10px;
+    .checkBox-all-input {
+        float: left;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+    label {
+        display: inline-block;
+        cursor: pointer;
+    }
 
-  margin-bottom: 10px;
-  .checkBox-all-input {
-    float: left;
-    vertical-align: middle;
-    margin-right: 5px;
-  }
-  label {
-    display: inline-block;
-    cursor: pointer;
-  }
-
-  .cart-shop {
-    display: flex;
-    margin: 10px 0;
-    .cart-shop-left {
-      border: solid 2px #eeeeef;
-      margin-right: 10px;
-      min-height: 500px;
-      width: 60%;
-      display: flex;
-      align-items: flex-start;
-      background-color: rgba(255, 255, 255, 0.486);
-      .cart-items {
+    .cart-shop {
+        display: flex;
+        margin: 10px 0;
+        .cart-shop-left {
+            border: solid 2px #eeeeef;
+            margin-right: 10px;
+            min-height: 500px;
+            width: 60%;
+            display: flex;
+            align-items: flex-start;
+            background-color: rgba(255, 255, 255, 0.486);
+            .cart-items {
+                width: 100%;
+                .cart-item {
+                    position: relative;
+                    padding: 10px 30px 10px 10px;
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    justify-content: space-between;
+                    .img-box {
+                        margin: 0 10px;
+                        width: 50px;
+                        img {
+                            width: 100%;
+                        }
+                    }
+                    .product-name {
+                        flex-grow: 1;
+                        text-align: center;
+                    }
+                    .select-box {
+                        select {
+                            cursor: pointer;
+                        }
+                        margin: 0 10px;
+                    }
+                    .del-cart-item {
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                        cursor: pointer;
+                    }
+                    input {
+                        cursor: pointer;
+                    }
+                }
+                .cart-item + .cart-item {
+                    padding-top: 10px;
+                    border-top: rgba(0, 0, 0, 0.199) 1px solid;
+                }
+            }
+        }
+        .cart-shop-right {
+            width: 40%;
+            border: solid 2px #eeeeef;
+            padding: 0 0 24px 0;
+            max-height: 390px;
+            background-color: rgba(255, 255, 255, 0.486);
+            h2 {
+                background-color: #ccc;
+                padding: 24px 24px 24px 24px;
+            }
+            ul {
+                li {
+                    margin: 15px;
+                    span:nth-child(2) {
+                        float: right;
+                    }
+                    .error-text {
+                        display: inline-block;
+                        margin: 0 10px;
+                        color: $error-color;
+                    }
+                    .success-text {
+                        display: inline-block;
+                        margin: 0 10px;
+                        color: $success-color;
+                    }
+                    input {
+                        float: right;
+                        width: 100px;
+                    }
+                }
+                .total {
+                    font-size: 20px;
+                }
+                .count-btn {
+                    input {
+                        width: 100%;
+                        padding: 10px 0;
+                        border-radius: 5px;
+                    }
+                    text-align: center;
+                }
+                hr {
+                    width: 90%;
+                    border: solid 0.5px #ccc;
+                }
+            }
+        }
+    }
+    //------------------------------------------------------------------------------------step1
+    .payBox {
         width: 100%;
-        .cart-item {
-          position: relative;
-          padding: 10px 30px 10px 10px;
-          display: flex;
-          align-items: center;
-          width: 100%;
-          justify-content: space-between;
-          .img-box {
-            margin: 0 10px;
-            width: 50px;
-            img {
-              width: 100%;
+        min-height: 500px;
+        background-color: rgba(255, 255, 255, 0.486);
+        display: flex;
+        label {
+            display: block;
+            margin-bottom: 1%;
+        }
+        div {
+            flex: 1;
+        }
+        .left,
+        .right {
+            padding: 3% 1%;
+        }
+        .left {
+            font-size: 16px;
+            div {
+                display: flex;
+                justify-content: space-between;
+                margin: 3%;
             }
-          }
-          .product-name {
-            flex-grow: 1;
-            text-align: center;
-          }
-          .select-box {
-            select {
-              cursor: pointer;
+        }
+        .right {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            background-color: rgba(255, 255, 255, 0.486);
+            div {
+                flex: 1;
+                width: 100%;
+                margin: 3% 0;
+                input {
+                    width: 100%;
+                    padding-left: 1%;
+                }
+                input[type='submit'] {
+                    border-radius: 50px;
+                    border: none;
+                    height: 30px;
+                    background-color: #f2dbb8;
+                }
+                .cardNumber {
+                    margin: 0;
+                    position: relative;
+                    input {
+                        padding-left: 8%;
+                    }
+                    img {
+                        position: absolute;
+                        width: 5%;
+                        top: 50%;
+                        left: 1%;
+                        transform: translateY(-50%);
+                    }
+                }
             }
-            margin: 0 10px;
-          }
-          .del-cart-item {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-          }
-          input {
-            cursor: pointer;
-          }
         }
-        .cart-item + .cart-item {
-          padding-top: 10px;
-          border-top: rgba(0, 0, 0, 0.199) 1px solid;
-        }
-      }
     }
-    .cart-shop-right {
-      width: 40%;
-      border: solid 2px #eeeeef;
-      padding: 0 0 24px 0;
-      max-height: 390px;
-      background-color: rgba(255, 255, 255, 0.486);
-      h2 {
-        background-color: #ccc;
-        padding: 24px 24px 24px 24px;
-      }
-      ul {
-        li {
-          margin: 15px;
-          span:nth-child(2) {
-            float: right;
-          }
-          .error-text {
-            display: inline-block;
-            margin: 0 10px;
-            color: $error-color;
-          }
-          .success-text {
-            display: inline-block;
-            margin: 0 10px;
-            color: $success-color;
-          }
-          input {
-            float: right;
-            width: 100px;
-          }
-        }
-        .total {
-          font-size: 20px;
-        }
-        .count-btn {
-          input {
-            width: 100%;
-            padding: 10px 0;
-            border-radius: 5px;
-          }
-          text-align: center;
-        }
-        hr {
-          width: 90%;
-          border: solid 0.5px #ccc;
-        }
-      }
+    .error {
+        color: red;
+        font-size: 10px;
     }
-  }
 }
