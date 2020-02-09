@@ -1,167 +1,189 @@
-@import "../commom/commom.scss";
+@import '../commom/commom.scss';
 .navbar-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background-color: $footer-color;
-  color: #fff;
-  font-size: 20px;
-  height: 60px;
-  z-index: 999;
-  ul {
-    @media screen and (max-width: 768px) {
-      padding-top: 8px;
-      padding-bottom: 8px;
-    }
-    img {
-      cursor: pointer;
-    }
-    li {
-      margin: auto 0;
-      ul {
-        @media (max-width: 768px) {
-          display: none !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: $footer-color;
+    color: #fff;
+    font-size: 20px;
+    height: 60px;
+    z-index: 999;
+    ul {
+        @media screen and (max-width: 768px) {
+            padding-top: 8px;
+            padding-bottom: 8px;
         }
-        .login-pos {
-          position: relative;
-          .member-login {
-            position: absolute;
-            left: 15px;
-            top: 55px;
-            white-space: nowrap;
-            font-size: 16px;
-            background-color: #fff;
-            li {
-              color: $footer-color;
-              margin: 0;
-              padding: 0;
-              cursor: pointer;
-              // &:hover {
-              //   background-color: $side-color;
-              // }
-              &:before {
-                content: "";
-                width: 0;
-                display: block;
-                border-width: 8px 8px 8px 8px;
-                border-style: solid;
-                border-color: transparent transparent rgba(255, 255, 255, 1)
-                  transparent;
-                /* 定位 */
-                position: absolute;
-                left: 0px;
-                top: -15px;
-              }
-              a {
-                padding: 5px 5px;
-                display: block;
-                color: $footer-color;
-                &:hover {
-                  border-radius: 0px;
-                  background: $side-color;
-                }
-              }
-            }
-          }
+        img {
+            cursor: pointer;
         }
         li {
-          padding: 10px 0px;
-          a {
-            padding: 10px;
-            display: block;
+            margin: auto 5px;
+            ul {
+                @media (max-width: 768px) {
+                    display: none !important;
+                }
+                .login-pos {
+                    position: relative;
+                    .member-login {
+                        position: absolute;
+                        left: 15px;
+                        top: 55px;
+                        white-space: nowrap;
+                        font-size: 16px;
+                        background-color: #fff;
+                        li {
+                            color: $footer-color;
+                            margin: 0;
+                            padding: 0;
+                            cursor: pointer;
+                            // &:hover {
+                            //   background-color: $side-color;
+                            // }
+                            &:before {
+                                content: '';
+                                width: 0;
+                                display: block;
+                                border-width: 8px 8px 8px 8px;
+                                border-style: solid;
+                                border-color: transparent transparent rgba(255, 255, 255, 1) transparent;
+                                /* 定位 */
+                                position: absolute;
+                                left: 0px;
+                                top: -15px;
+                            }
+                            a {
+                                padding: 5px 5px;
+                                display: block;
+                                color: $footer-color;
+                                &:hover {
+                                    border-radius: 0px;
+                                    background: $side-color;
+                                }
+                            }
+                        }
+                    }
+                }
+                li {
+                    padding: 10px 0px;
+                    a {
+                        padding: 10px;
+                        display: block;
+                        cursor: pointer;
+                        color: #fff;
+                        &:hover {
+                            border-radius: 20px;
+                            background: $side-color;
+                        }
+                    }
+                }
+            }
+        }
+        .smell-cart {
+            position: relative;
+            .smell-cart-sidebar {
+                display: block;
+                width: 350px;
+                left: 50%;
+                transform: translate(-50%, 0);
+                transition: 1s;
+                position: absolute;
+                ul {
+                    background-color: #352c2a88;
+                    min-height: 400px;
+                    max-height: 100vh;
+                    padding: 10px 0;
+                    overflow-y: auto;
+                    position: relative;
+                    li {
+                        margin: 10px 10px;
+                        .smell-cart-left {
+                            flex: 0.3;
+                            img {
+                                width: 60px;
+                            }
+                        }
+                        .smell-cart-middle {
+                            flex: 0.5;
+                            padding: 5px;
+                            span {
+                                font-size: 16px;
+                            }
+                        }
+                        .smell-cart-right {
+                            margin-top: auto;
+                            padding: 5px;
+                            cursor: pointer;
+                            font-size: 14px;
+                            cursor: pointer;
+                        }
+                    }
+                    li:not(:last-child) {
+                        border-bottom: 1px solid #fff;
+                    }
+                }
+                .smell-cart-bottom {
+                    width: 350px;
+                    height: 40px;
+                    background-color: rgba(255, 255, 255, 0.548);
+                    color: $footer-color;
+                    line-height: 40px;
+                    text-align: center;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: #fff;
+                    }
+                    span {
+                        font-size: 16px;
+                        a {
+                            font-size: 16px;
+                            padding: 0px;
+                            display: block;
+                            cursor: pointer;
+                            color: $footer-color;
+                            &:hover {
+                                border-radius: 0px;
+                                background-color: #fff;
+                            }
+                        }
+                    }
+                }
+                .smell-cart-close {
+                    position: absolute;
+                    top: 20px;
+                    right: 20px;
+                    cursor: pointer;
+                }
+            }
+        }
+        .rwd-menu {
             cursor: pointer;
+            @media (min-width: 768px) {
+                display: none;
+            }
+        }
+    }
+}
+//rwd
+
+.hamburgerMenu {
+    display: block;
+    position: fixed;
+    color: $footer-color;
+    top: 60px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    text-align: center;
+    background-color: $footer-color;
+    li {
+        padding: 5px;
+        a {
             color: #fff;
-            &:hover {
-              border-radius: 20px;
-              background: $side-color;
-            }
-          }
+            list-style: none;
         }
-      }
     }
-    .smell-cart {
-      position: relative;
-      .smell-cart-sidebar {
-        display: block;
-        width: 350px;
-        left: 50%;
-        transform: translate(-50%, 0);
-        transition: 1s;
-        position: absolute;
-        ul {
-          background-color: #352c2a88;
-          min-height: 400px;
-          max-height: 100vh;
-          padding: 10px 0;
-          overflow-y: auto;
-          position: relative;
-          li {
-            margin: 10px 10px;
-            .smell-cart-left {
-              flex: 0.3;
-              img {
-                width: 60px;
-              }
-            }
-            .smell-cart-middle {
-              flex: 0.5;
-              padding: 5px;
-              span {
-                font-size: 16px;
-              }
-            }
-            .smell-cart-right {
-              margin-top: auto;
-              padding: 5px;
-              cursor: pointer;
-              font-size: 14px;
-              cursor: pointer;
-            }
-          }
-          li:not(:last-child) {
-            border-bottom: 1px solid #fff;
-          }
-        }
-        .smell-cart-bottom {
-          width: 350px;
-          height: 40px;
-          background-color: rgba(255, 255, 255, 0.548);
-          color: $footer-color;
-          line-height: 40px;
-          text-align: center;
-          cursor: pointer;
-          &:hover {
-            background-color: #fff;
-          }
-          span {
-            font-size: 16px;
-            a {
-              font-size: 16px;
-              padding: 0px;
-              display: block;
-              cursor: pointer;
-              color: $footer-color;
-              &:hover {
-                border-radius: 0px;
-                background-color: #fff;
-              }
-            }
-          }
-        }
-        .smell-cart-close {
-          position: absolute;
-          top: 20px;
-          right: 20px;
-          cursor: pointer;
-        }
-      }
-    }
-    .rwd-menu {
-      cursor: pointer;
-      @media (min-width: 768px) {
+    @media (min-width: 768px) {
         display: none;
-      }
     }
-  }
 }

@@ -2,10 +2,10 @@
 -- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- 主機： localhost
--- 產生時間： 2019 年 12 月 24 日 03:19
+-- 主機： 127.0.0.1
+-- 產生時間： 
 -- 伺服器版本： 10.4.10-MariaDB
--- PHP 版本： 7.1.33
+-- PHP 版本： 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -41,9 +41,10 @@ CREATE TABLE `cart` (
 
 INSERT INTO `cart` (`cart_sid`, `member_sid`, `product_sid`, `product_quantity`) VALUES
 (323, 2, 2, 1),
-(330, 1, 2, 20),
-(333, 1, 3, 7),
-(334, 1, 1, 1);
+(343, 1, 2, 18),
+(344, 1, 3, 4),
+(345, 1, 5, 20),
+(346, 1, 8, 1);
 
 -- --------------------------------------------------------
 
@@ -55,7 +56,7 @@ CREATE TABLE `coupon` (
   `coupon_sid` int(11) NOT NULL COMMENT '優惠卷流水號',
   `coupon_number` int(11) DEFAULT NULL COMMENT '優惠卷輸入號碼',
   `coupon_detail` varchar(255) CHARACTER SET utf16le DEFAULT NULL COMMENT '優惠活動內容',
-  `coupon_bonus` int(11) DEFAULT NULL COMMENT '優惠折扣',
+  `coupon_bonus` float DEFAULT NULL COMMENT '優惠折扣',
   `coupon_limit` int(11) NOT NULL DEFAULT 0 COMMENT '折扣限制',
   `coupon_create_time` datetime NOT NULL DEFAULT current_timestamp() COMMENT '優惠卷新增時間',
   `coupon_price_percent` float DEFAULT NULL COMMENT '浮點數折扣'
@@ -94,7 +95,7 @@ CREATE TABLE `member` (
 --
 
 INSERT INTO `member` (`member_sid`, `member_email`, `member_password`, `member_name`, `member_birth`, `member_phone`, `member_address`, `member_bonus`, `member_create`, `member_level`, `member_picture`) VALUES
-(1, 'z27089433@gmail.com', 'z27089433', 'jason', '2019-12-16', '', '', 0, '2019-12-16 09:02:16', 1, ''),
+(1, 'z27089433@gmail.com', 'z27089433', 'jason', '2019-12-16', '', '', 400, '2019-12-16 09:02:16', 1, '1565267046-948161041_n.jpg'),
 (2, 'z270894333@gmail.com', 'z270894333', 'jason2', '2019-12-23', '', '', 0, '2019-12-23 09:54:18', 1, '');
 
 -- --------------------------------------------------------
@@ -245,7 +246,7 @@ ALTER TABLE `product_order`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_sid` int(11) NOT NULL AUTO_INCREMENT COMMENT '購物車流水號', AUTO_INCREMENT=335;
+  MODIFY `cart_sid` int(11) NOT NULL AUTO_INCREMENT COMMENT '購物車流水號', AUTO_INCREMENT=347;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `coupon`
